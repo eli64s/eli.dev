@@ -62,7 +62,7 @@ async function createApp() {
 
 // For serverless deployment (Vercel)
 if (process.env.VERCEL) {
-  module.exports = createApp();
+  module.exports = createApp;
 } else {
   // For local development
   (async () => {

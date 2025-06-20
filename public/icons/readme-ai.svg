@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"
+     role="img" aria-label="README-AI app icon">
+  <defs>
+    <linearGradient id="darkDepthGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4169E1;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#7B3DE3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8A2BE2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="darkHighlight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0.05" />
+    </linearGradient>
+    <linearGradient id="darkShadow" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0.1" />
+    </linearGradient>
+    <filter id="darkGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" />
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.6" />
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <radialGradient id="darkParticle" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.8">
+        <animate attributeName="stop-color" values="#FFFFFF;#10B981;#3B82F6;#FFFFFF"
+                 dur="6s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:0">
+        <animate attributeName="stop-color" values="#3B82F6;#FFFFFF;#10B981;#3B82F6"
+                 dur="6s" repeatCount="indefinite" />
+      </stop>
+    </radialGradient>
+  </defs>
+  <!-- Dark rounded square background -->
+  <rect width="256" height="256" rx="58" fill="#1a1a1a" />
+  <!-- Ambient glow -->
+  <circle cx="128" cy="128" r="100" fill="url(#darkDepthGradient)" opacity="0.08">
+    <animate attributeName="r" values="100;105;100" dur="4s" repeatCount="indefinite" />
+  </circle>
+  <!-- Main logo container -->
+  <g transform="translate(128, 128)">
+    <rect x="-60" y="-60" width="120" height="120" rx="20"
+          fill="url(#darkDepthGradient)"
+          filter="drop-shadow(5px 5px 20px rgba(0, 0, 0, 0.5))" />
+    <rect x="-60" y="-60" width="120" height="60" rx="20" fill="url(#darkHighlight)"
+          opacity="0.2" />
+    <rect x="-60" y="0" width="120" height="60" rx="20" fill="url(#darkShadow)"
+          opacity="0.4" />
+    <path d="M -30 -40 L -30 40 L -8 40 L 0 24 L 8 40 L 30 40 L 30 -40 Z" fill="#FFFFFF"
+          filter="url(#darkGlow)" />
+  </g>
+  <!-- Orbital particles -->
+  <g>
+    <circle cx="0" cy="0" r="4" fill="url(#darkParticle)" filter="url(#darkGlow)">
+      <animateMotion path="M 128 128 a 80 80 0 1 1 0 1" dur="8s"
+                     repeatCount="indefinite" />
+    </circle>
+    <circle cx="0" cy="0" r="3" fill="url(#darkParticle)" filter="url(#darkGlow)">
+      <animateMotion path="M 128 128 a 75 75 0 1 0 0 1" dur="6s"
+                     repeatCount="indefinite" />
+    </circle>
+    <circle cx="0" cy="0" r="3.5" fill="url(#darkParticle)" filter="url(#darkGlow)">
+      <animateMotion path="M 128 128 a 90 90 0 1 1 0 1" dur="10s"
+                     repeatCount="indefinite" />
+    </circle>
+  </g>
+  <!-- Corner accent elements -->
+  <g transform="translate(60, 60)" opacity="0.4">
+    <rect x="-6" y="-6" width="12" height="12" rx="3" fill="none"
+          stroke="url(#darkDepthGradient)" stroke-width="2">
+      <animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0"
+                        dur="15s" repeatCount="indefinite" />
+    </rect>
+  </g>
+  <g transform="translate(196, 196)" opacity="0.4">
+    <rect x="-6" y="-6" width="12" height="12" rx="3" fill="none"
+          stroke="url(#darkDepthGradient)" stroke-width="2">
+      <animateTransform attributeName="transform" type="rotate" values="0 0 0;-360 0 0"
+                        dur="12s" repeatCount="indefinite" />
+    </rect>
+  </g>
+  <!-- Data visualization elements -->
+  <g transform="translate(50, 180)" opacity="0.6">
+    <rect x="0" y="0" width="3" height="20" fill="#10B981" />
+    <rect x="5" y="5" width="3" height="15" fill="#06B6D4" />
+    <rect x="10" y="2" width="3" height="18" fill="#3B82F6" />
+    <rect x="15" y="8" width="3" height="12" fill="#8B5CF6" />
+  </g>
+  <g transform="translate(180, 50)" opacity="0.6">
+    <rect x="0" y="0" width="3" height="15" fill="#10B981" />
+    <rect x="5" y="3" width="3" height="12" fill="#06B6D4" />
+    <rect x="10" y="1" width="3" height="14" fill="#3B82F6" />
+  </g>
+</svg>

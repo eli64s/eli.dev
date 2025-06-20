@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="Markitect app icon">
+  <defs>
+    <linearGradient id="macosMainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="20%" style="stop-color:#FFD700"/>
+      <stop offset="40%" style="stop-color:#00E5FF"/>
+      <stop offset="60%" style="stop-color:#7934C5"/>
+      <stop offset="80%" style="stop-color:#FF00FF"/>
+    </linearGradient>
+    <linearGradient id="macosBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A0218;stop-opacity:1"/>
+      <stop offset="50%" style="stop-color:#1A0C2E;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0A0218;stop-opacity:1"/>
+    </linearGradient>
+    <pattern id="macosGridPattern" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+      <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#FFFFFF" stroke-width="0.2" stroke-opacity="0.05"/>
+    </pattern>
+    <filter id="macosGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.4"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <radialGradient id="macosParticle" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1">
+        <animate attributeName="stop-color" values="#FFFFFF;#FFD700;#00E5FF;#7934C5;#FF00FF;#FFFFFF" dur="8s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" style="stop-color:#7934C5;stop-opacity:0">
+        <animate attributeName="stop-color" values="#7934C5;#FF00FF;#FFD700;#00E5FF;#7934C5" dur="8s" repeatCount="indefinite"/>
+      </stop>
+    </radialGradient>
+  </defs>
+  <!-- macOS rounded square -->
+  <rect width="256" height="256" rx="58" fill="url(#macosBg)"/>
+  <rect width="256" height="256" rx="58" fill="url(#macosGridPattern)"/>
+  <!-- Ambient glow -->
+  <circle cx="128" cy="128" r="100" fill="url(#macosMainGradient)" opacity="0.08">
+    <animate attributeName="r" values="100;110;100" dur="6s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Main Markitect logo -->
+  <g transform="translate(128, 128) scale(3.2)">
+    <!-- Main M outline -->
+    <path d="M-18,-11 L-11,-11 L-11,6 L-6,-7 L0,6 L6,-7 L11,6 L11,-11 L18,-11 L18,11 L11,11 L0,-6 L-11,11 L-18,11 Z" fill="none" stroke="url(#macosMainGradient)" stroke-width="1.2" stroke-linejoin="round" filter="url(#macosGlow)">
+      <animate attributeName="d" values="M-18,-11 L-11,-11 L-11,6 L-6,-7 L0,6 L6,-7 L11,6 L11,-11 L18,-11 L18,11 L11,11 L0,-6 L-11,11 L-18,11 Z;                          M-19,-12 L-12,-12 L-12,7 L-7,-8 L0,7 L7,-8 L12,7 L12,-12 L19,-12 L19,12 L12,12 L0,-7 L-12,12 L-19,12 Z;                          M-18,-11 L-11,-11 L-11,6 L-6,-7 L0,6 L6,-7 L11,6 L11,-11 L18,-11 L18,11 L11,11 L0,-6 L-11,11 L-18,11 Z" dur="12s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"/>
+    </path>
+    <!-- Inner M -->
+    <path d="M-15,-8 L-9,-8 L-9,4 L-5,-5 L0,4 L5,-5 L9,4 L9,-8 L15,-8 L15,8 L9,8 L0,-4 L-9,8 L-15,8 Z" fill="none" stroke="url(#macosMainGradient)" stroke-width="0.8" stroke-linejoin="round" opacity="0.7"/>
+    <!-- Core M -->
+    <path d="M-12,-5 L-7,-5 L-7,3 L-4,-4 L0,3 L4,-4 L7,3 L7,-5 L12,-5 L12,5 L7,5 L0,-3 L-7,5 L-12,5 Z" fill="none" stroke="url(#macosMainGradient)" stroke-width="0.5" stroke-linejoin="round" opacity="0.5"/>
+    <!-- Key Points -->
+    <circle cx="-18" cy="-11" r="0.8" fill="#FFD700" opacity="0.9"/>
+    <circle cx="18" cy="-11" r="0.8" fill="#00E5FF" opacity="0.9"/>
+    <circle cx="-18" cy="11" r="0.8" fill="#7934C5" opacity="0.9"/>
+    <circle cx="18" cy="11" r="0.8" fill="#FF00FF" opacity="0.9"/>
+  </g>
+  <!-- Orbital particles -->
+  <circle cx="0" cy="0" r="3" fill="url(#macosParticle)" filter="url(#macosGlow)">
+    <animateMotion path="M 128 128 a 70 70 0 1 1 0 1" dur="10s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="0" cy="0" r="2.5" fill="url(#macosParticle)" filter="url(#macosGlow)">
+    <animateMotion path="M 128 128 a 65 65 0 1 0 0 1" dur="8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="0" cy="0" r="3.5" fill="url(#macosParticle)" filter="url(#macosGlow)">
+    <animateMotion path="M 128 128 a 80 80 0 1 1 0 1" dur="12s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Corner architectural elements -->
+  <g transform="translate(60, 60)" opacity="0.4">
+    <rect x="-4" y="-4" width="8" height="8" rx="2" fill="none" stroke="url(#macosMainGradient)" stroke-width="1">
+      <animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" dur="20s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+  <g transform="translate(196, 196)" opacity="0.4">
+    <rect x="-4" y="-4" width="8" height="8" rx="2" fill="none" stroke="url(#macosMainGradient)" stroke-width="1">
+      <animateTransform attributeName="transform" type="rotate" values="0 0 0;-360 0 0" dur="18s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+  <g transform="translate(60, 196)" opacity="0.3">
+    <polygon points="0,-6 6,0 0,6 -6,0" fill="none" stroke="url(#macosMainGradient)" stroke-width="1">
+      <animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" dur="15s" repeatCount="indefinite"/>
+    </polygon>
+  </g>
+  <g transform="translate(196, 60)" opacity="0.3">
+    <polygon points="0,-6 6,0 0,6 -6,0" fill="none" stroke="url(#macosMainGradient)" stroke-width="1">
+      <animateTransform attributeName="transform" type="rotate" values="0 0 0;-360 0 0" dur="16s" repeatCount="indefinite"/>
+    </polygon>
+  </g>
+</svg>

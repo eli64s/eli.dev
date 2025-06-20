@@ -11,12 +11,10 @@
     }
   ],
   "routes": [
-    // 1) Any /api/* → your Express function
     {
       "src": "/api/(.*)",
       "dest": "api/index.js"
     },
-    // 2) Everything else → serve index.html from the static bundle
     {
       "src": "/(.*)",
       "dest": "/index.html"

@@ -1,98 +1,212 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"
      role="img" aria-label="README-AI app icon">
   <defs>
-    <linearGradient id="darkDepthGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="blueVioletGradient" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#4169E1;stop-opacity:1" />
       <stop offset="50%" style="stop-color:#7B3DE3;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#8A2BE2;stop-opacity:1" />
     </linearGradient>
-    <linearGradient id="darkHighlight" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.15" />
+    <linearGradient id="modernHighlight" x1="0%" y1="0%" x2="100%" y2="50%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.25" />
       <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0.05" />
     </linearGradient>
-    <linearGradient id="darkShadow" x1="100%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#000000;stop-opacity:0.4" />
-      <stop offset="100%" style="stop-color:#000000;stop-opacity:0.1" />
+    <linearGradient id="modernShadow" x1="0%" y1="50%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0.5" />
     </linearGradient>
-    <filter id="darkGlow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="4" />
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366F1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A855F7;stop-opacity:1" />
+    </linearGradient>
+    <filter id="modernGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
       <feComponentTransfer>
-        <feFuncA type="linear" slope="0.6" />
+        <feFuncA type="linear" slope="0.8" />
       </feComponentTransfer>
       <feMerge>
         <feMergeNode />
         <feMergeNode in="SourceGraphic" />
       </feMerge>
     </filter>
-    <radialGradient id="darkParticle" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.8">
-        <animate attributeName="stop-color" values="#FFFFFF;#10B981;#3B82F6;#FFFFFF"
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6" />
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3" />
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <radialGradient id="blueVioletParticle" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.9">
+        <animate attributeName="stop-color" values="#FFFFFF;#4169E1;#8A2BE2;#FFFFFF"
                  dur="6s" repeatCount="indefinite" />
       </stop>
-      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:0">
-        <animate attributeName="stop-color" values="#3B82F6;#FFFFFF;#10B981;#3B82F6"
+      <stop offset="100%" style="stop-color:#8A2BE2;stop-opacity:0">
+        <animate attributeName="stop-color" values="#8A2BE2;#FFFFFF;#4169E1;#8A2BE2"
                  dur="6s" repeatCount="indefinite" />
       </stop>
     </radialGradient>
   </defs>
-  <!-- Dark rounded square background -->
-  <rect width="256" height="256" rx="58" fill="#1a1a1a" />
-  <!-- Ambient glow -->
-  <circle cx="128" cy="128" r="100" fill="url(#darkDepthGradient)" opacity="0.08">
-    <animate attributeName="r" values="100;105;100" dur="4s" repeatCount="indefinite" />
+  <!-- Dark rounded square background with subtle gradient -->
+  <defs>
+    <radialGradient id="backgroundGradient" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#1f1f23;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f0f11;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  <rect width="256" height="256" rx="58" fill="url(#backgroundGradient)" />
+  <!-- Ambient glow layers -->
+  <circle cx="128" cy="128" r="110" fill="url(#blueVioletGradient)" opacity="0.04"
+          filter="url(#softGlow)">
+    <animate attributeName="r" values="110;118;110" dur="5s" repeatCount="indefinite" />
   </circle>
-  <!-- Main logo container -->
+  <circle cx="128" cy="128" r="85" fill="url(#accentGradient)" opacity="0.08">
+    <animate attributeName="r" values="85;90;85" dur="3s" repeatCount="indefinite" />
+  </circle>
+  <!-- Main logo container with enhanced depth -->
   <g transform="translate(128, 128)">
+    <!-- Shadow layer -->
+    <rect x="-58" y="-56" width="116" height="116" rx="22" fill="#000000" opacity="0.3"
+          filter="url(#softGlow)" />
+    <!-- Main container -->
     <rect x="-60" y="-60" width="120" height="120" rx="20"
-          fill="url(#darkDepthGradient)"
-          filter="drop-shadow(5px 5px 20px rgba(0, 0, 0, 0.5))" />
-    <rect x="-60" y="-60" width="120" height="60" rx="20" fill="url(#darkHighlight)"
-          opacity="0.2" />
-    <rect x="-60" y="0" width="120" height="60" rx="20" fill="url(#darkShadow)"
+          fill="url(#blueVioletGradient)" filter="url(#softGlow)" />
+    <!-- Highlight overlay -->
+    <rect x="-60" y="-60" width="120" height="60" rx="20" fill="url(#modernHighlight)"
+          opacity="0.3" />
+    <!-- Shadow overlay -->
+    <rect x="-60" y="0" width="120" height="60" rx="20" fill="url(#modernShadow)"
           opacity="0.4" />
+    <!-- AI Logo with enhanced styling -->
     <path d="M -30 -40 L -30 40 L -8 40 L 0 24 L 8 40 L 30 40 L 30 -40 Z" fill="#FFFFFF"
-          filter="url(#darkGlow)" />
+          filter="url(#modernGlow)" opacity="0.95" />
+    <!-- Inner glow accent -->
+    <path d="M -28 -38 L -28 38 L -10 38 L 0 22 L 10 38 L 28 38 L 28 -38 Z" fill="none"
+          stroke="url(#accentGradient)" stroke-width="1" opacity="0.6" />
   </g>
-  <!-- Orbital particles -->
+  <!-- Enhanced orbital particles -->
   <g>
-    <circle cx="0" cy="0" r="4" fill="url(#darkParticle)" filter="url(#darkGlow)">
-      <animateMotion path="M 128 128 a 80 80 0 1 1 0 1" dur="8s"
+    <circle cx="0" cy="0" r="5" fill="url(#blueVioletParticle)"
+            filter="url(#modernGlow)" opacity="0.8">
+      <animateMotion path="M 128 128 a 85 85 0 1 1 0 1" dur="8s"
                      repeatCount="indefinite" />
     </circle>
-    <circle cx="0" cy="0" r="3" fill="url(#darkParticle)" filter="url(#darkGlow)">
-      <animateMotion path="M 128 128 a 75 75 0 1 0 0 1" dur="6s"
+    <circle cx="0" cy="0" r="3.5" fill="url(#blueVioletParticle)"
+            filter="url(#modernGlow)" opacity="0.7">
+      <animateMotion path="M 128 128 a 70 70 0 1 0 0 1" dur="6s"
                      repeatCount="indefinite" />
     </circle>
-    <circle cx="0" cy="0" r="3.5" fill="url(#darkParticle)" filter="url(#darkGlow)">
-      <animateMotion path="M 128 128 a 90 90 0 1 1 0 1" dur="10s"
+    <circle cx="0" cy="0" r="4" fill="url(#blueVioletParticle)"
+            filter="url(#modernGlow)" opacity="0.6">
+      <animateMotion path="M 128 128 a 95 95 0 1 1 0 1" dur="10s"
+                     repeatCount="indefinite" />
+    </circle>
+    <!-- Additional micro particles -->
+    <circle cx="0" cy="0" r="2" fill="#FFFFFF" opacity="0.4">
+      <animateMotion path="M 128 128 a 105 105 0 1 0 0 1" dur="12s"
+                     repeatCount="indefinite" />
+    </circle>
+    <circle cx="0" cy="0" r="1.5" fill="#FFFFFF" opacity="0.3">
+      <animateMotion path="M 128 128 a 60 60 0 1 1 0 1" dur="4s"
                      repeatCount="indefinite" />
     </circle>
   </g>
-  <!-- Corner accent elements -->
-  <g transform="translate(60, 60)" opacity="0.4">
-    <rect x="-6" y="-6" width="12" height="12" rx="3" fill="none"
-          stroke="url(#darkDepthGradient)" stroke-width="2">
+  <!-- Enhanced corner accent elements -->
+  <g transform="translate(60, 60)" opacity="0.5">
+    <rect x="-8" y="-8" width="16" height="16" rx="4" fill="none"
+          stroke="url(#blueVioletGradient)" stroke-width="2">
       <animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0"
                         dur="15s" repeatCount="indefinite" />
     </rect>
+    <circle cx="0" cy="0" r="3" fill="url(#accentGradient)" opacity="0.6">
+      <animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite" />
+    </circle>
   </g>
-  <g transform="translate(196, 196)" opacity="0.4">
-    <rect x="-6" y="-6" width="12" height="12" rx="3" fill="none"
-          stroke="url(#darkDepthGradient)" stroke-width="2">
+  <g transform="translate(196, 196)" opacity="0.5">
+    <rect x="-8" y="-8" width="16" height="16" rx="4" fill="none"
+          stroke="url(#blueVioletGradient)" stroke-width="2">
       <animateTransform attributeName="transform" type="rotate" values="0 0 0;-360 0 0"
                         dur="12s" repeatCount="indefinite" />
     </rect>
+    <circle cx="0" cy="0" r="3" fill="url(#accentGradient)" opacity="0.6">
+      <animate attributeName="r" values="3;5;3" dur="2.5s" repeatCount="indefinite" />
+    </circle>
   </g>
-  <!-- Data visualization elements -->
-  <g transform="translate(50, 180)" opacity="0.6">
-    <rect x="0" y="0" width="3" height="20" fill="#10B981" />
-    <rect x="5" y="5" width="3" height="15" fill="#06B6D4" />
-    <rect x="10" y="2" width="3" height="18" fill="#3B82F6" />
-    <rect x="15" y="8" width="3" height="12" fill="#8B5CF6" />
+  <!-- Enhanced data visualization elements -->
+  <g transform="translate(50, 180)" opacity="0.7">
+    <rect x="0" y="0" width="4" height="24" rx="2" fill="#4169E1"
+          filter="url(#modernGlow)">
+      <animate attributeName="height" values="24;28;24" dur="3s"
+               repeatCount="indefinite" />
+    </rect>
+    <rect x="6" y="4" width="4" height="20" rx="2" fill="#6366F1"
+          filter="url(#modernGlow)">
+      <animate attributeName="height" values="20;24;20" dur="2.5s"
+               repeatCount="indefinite" />
+    </rect>
+    <rect x="12" y="2" width="4" height="22" rx="2" fill="#7B3DE3"
+          filter="url(#modernGlow)">
+      <animate attributeName="height" values="22;26;22" dur="3.5s"
+               repeatCount="indefinite" />
+    </rect>
+    <rect x="18" y="6" width="4" height="18" rx="2" fill="#8A2BE2"
+          filter="url(#modernGlow)">
+      <animate attributeName="height" values="18;22;18" dur="2s"
+               repeatCount="indefinite" />
+    </rect>
+    <rect x="24" y="8" width="4" height="16" rx="2" fill="#A855F7"
+          filter="url(#modernGlow)">
+      <animate attributeName="height" values="16;20;16" dur="4s"
+               repeatCount="indefinite" />
+    </rect>
   </g>
-  <g transform="translate(180, 50)" opacity="0.6">
-    <rect x="0" y="0" width="3" height="15" fill="#10B981" />
-    <rect x="5" y="3" width="3" height="12" fill="#06B6D4" />
-    <rect x="10" y="1" width="3" height="14" fill="#3B82F6" />
+  <g transform="translate(180, 50)" opacity="0.7">
+    <rect x="0" y="0" width="4" height="18" rx="2" fill="#4169E1"
+          filter="url(#modernGlow)">
+      <animate attributeName="height" values="18;22;18" dur="2.8s"
+               repeatCount="indefinite" />
+    </rect>
+    <rect x="6" y="2" width="4" height="16" rx="2" fill="#6366F1"
+          filter="url(#modernGlow)">
+      <animate attributeName="height" values="16;20;16" dur="3.2s"
+               repeatCount="indefinite" />
+    </rect>
+    <rect x="12" y="1" width="4" height="19" rx="2" fill="#7B3DE3"
+          filter="url(#modernGlow)">
+      <animate attributeName="height" values="19;23;19" dur="2.5s"
+               repeatCount="indefinite" />
+    </rect>
+    <rect x="18" y="3" width="4" height="17" rx="2" fill="#8A2BE2"
+          filter="url(#modernGlow)">
+      <animate attributeName="height" values="17;21;17" dur="3.8s"
+               repeatCount="indefinite" />
+    </rect>
+  </g>
+  <!-- Additional decorative neural network nodes -->
+  <g transform="translate(40, 40)" opacity="0.3">
+    <circle cx="0" cy="0" r="2" fill="#4169E1">
+      <animate attributeName="opacity" values="0.3;0.8;0.3" dur="4s"
+               repeatCount="indefinite" />
+    </circle>
+    <line x1="0" y1="0" x2="15" y2="8" stroke="#7B3DE3" stroke-width="1"
+          opacity="0.4" />
+    <circle cx="15" cy="8" r="1.5" fill="#8A2BE2">
+      <animate attributeName="opacity" values="0.3;0.7;0.3" dur="3s"
+               repeatCount="indefinite" />
+    </circle>
+  </g>
+  <g transform="translate(216, 216)" opacity="0.3">
+    <circle cx="0" cy="0" r="2" fill="#8A2BE2">
+      <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3.5s"
+               repeatCount="indefinite" />
+    </circle>
+    <line x1="0" y1="0" x2="-12" y2="-6" stroke="#7B3DE3" stroke-width="1"
+          opacity="0.4" />
+    <circle cx="-12" cy="-6" r="1.5" fill="#4169E1">
+      <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2.8s"
+               repeatCount="indefinite" />
+    </circle>
   </g>
 </svg>

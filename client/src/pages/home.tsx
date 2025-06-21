@@ -4,11 +4,8 @@ import {
   FaGithub, 
   FaLinkedin, 
   FaTwitter, 
-  FaInstagram, 
-  FaDiscord, 
-  FaGlobe 
+  FaInstagram,
 } from "react-icons/fa";
-import { SiMastodon } from "react-icons/si";
 import type { Profile, SocialLink, NavigationSection } from "@shared/schema";
 import ShaderBackground from "@/components/ShaderBackground";
 import ColorPalette from "@/components/ColorPalette";
@@ -29,8 +26,12 @@ import JuliaSetShader from "@/components/JuliaSetShader";
 import BurningShipShader from "@/components/BurningShipShader";
 import TurbulenceShader from "@/components/TurbulenceShader";
 import CloudsShader from "@/components/CloudsShader";
+import BubbleColorsShader from "@/components/BubbleColorsShader";
+import SpiralWhirlpoolShader from "@/components/SpiralWhirlpoolShader";
+import CrossGalacticOceanShader from "@/components/CrossGalacticOceanShader";
 
 import ShaderControls from "@/components/ShaderControls";
+import ProjectShowcase from "@/components/ProjectShowcase";
 
 interface PortfolioData {
   profile: Profile;
@@ -42,15 +43,12 @@ const iconMap = {
   github: FaGithub,
   linkedin: FaLinkedin,
   twitter: FaTwitter,
-  mastodon: SiMastodon,
   instagram: FaInstagram,
-  discord: FaDiscord,
-  globe: FaGlobe,
 };
 
 export default function Home() {
   const [keyboardNavigation, setKeyboardNavigation] = useState(false);
-  const [currentVariant, setCurrentVariant] = useState<'blue' | 'animated' | 'radial' | 'orange' | 'stringtheory' | 'waveform' | 'plasma' | 'cybergrid' | 'voronoi' | 'kaleidoscope' | 'mandala' | 'sdfmorph' | 'fractalnoise' | 'fluiddynamics' | 'quantumfield' | 'zippyzaps' | 'mandelbrot' | 'juliaset' | 'burningship' | 'turbulence' | 'clouds'>('radial');
+  const [currentVariant, setCurrentVariant] = useState<'blue' | 'animated' | 'radial' | 'orange' | 'stringtheory' | 'waveform' | 'plasma' | 'cybergrid' | 'voronoi' | 'kaleidoscope' | 'mandala' | 'sdfmorph' | 'fractalnoise' | 'fluiddynamics' | 'quantumfield' | 'zippyzaps' | 'mandelbrot' | 'juliaset' | 'burningship' | 'turbulence' | 'clouds' | 'bubblecolors' | 'spiralwhirlpool' | 'crossgalacticocean'>('radial');
   
   // Shader controls state
   const [shaderSpeed, setShaderSpeed] = useState(1.0);
@@ -112,7 +110,7 @@ export default function Home() {
   };
 
   const getBackgroundVariant = () => {
-    if (['orange', 'stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds'].includes(currentVariant)) return null;
+    if (['orange', 'stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds', 'bubblecolors', 'spiralwhirlpool', 'crossgalacticocean'].includes(currentVariant)) return null;
     return currentVariant;
   };
 
@@ -120,7 +118,7 @@ export default function Home() {
     if (currentVariant === 'orange') {
       return `min-h-screen vibrant-orange text-white flex flex-col font-sans ${keyboardNavigation ? 'keyboard-navigation' : ''}`;
     }
-    if (['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds'].includes(currentVariant)) {
+    if (['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds', 'bubblecolors', 'spiralwhirlpool', 'crossgalacticocean'].includes(currentVariant)) {
       return `min-h-screen text-white flex flex-col font-sans relative overflow-hidden ${keyboardNavigation ? 'keyboard-navigation' : ''}`;
     }
     return `min-h-screen text-white flex flex-col font-sans ${keyboardNavigation ? 'keyboard-navigation' : ''}`;
@@ -169,16 +167,22 @@ export default function Home() {
         return <TurbulenceShader {...shaderProps} />;
       case 'clouds':
         return <CloudsShader {...shaderProps} />;
+      case 'bubblecolors':
+        return <BubbleColorsShader {...shaderProps} />;
+      case 'spiralwhirlpool':
+        return <SpiralWhirlpoolShader {...shaderProps} />;
+      case 'crossgalacticocean':
+        return <CrossGalacticOceanShader {...shaderProps} />;
       default:
         return null;
     }
   };
 
-  const showShaderControls = ['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds'].includes(currentVariant);
+  const showShaderControls = ['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds', 'bubblecolors', 'spiralwhirlpool', 'crossgalacticocean'].includes(currentVariant);
 
   const content = (
     <>
-      {['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds'].includes(currentVariant) && (
+      {['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds', 'bubblecolors', 'spiralwhirlpool', 'crossgalacticocean'].includes(currentVariant) && (
         <div className="absolute inset-0 z-0">
           {renderShaderBackground()}
         </div>
@@ -192,11 +196,7 @@ export default function Home() {
         />
       )}
       */}
-      <div className="relative z-10">
-        <ColorPalette 
-          currentVariant={currentVariant} 
-          onColorChange={setCurrentVariant} 
-        />
+      <div className="relative z-10 min-h-screen flex flex-col">
         {/* Main Content */}
         <div className="flex-1 flex items-center justify-center px-4 py-8">
           <div className="text-center animate-fade-in">
@@ -217,7 +217,7 @@ export default function Home() {
             </h1>
 
             {/* Social Media Links */}
-            <div className="flex justify-center items-center space-x-6 mb-16 flex-wrap">
+            <div className="flex justify-center items-center space-x-6 mb-12 flex-wrap">
               {data.socialLinks
                 .sort((a, b) => a.order - b.order)
                 .map((link) => {
@@ -237,6 +237,11 @@ export default function Home() {
                     </button>
                   );
                 })}
+            </div>
+
+            {/* Project Showcase */}
+            <div className="mb-16">
+              <ProjectShowcase />
             </div>
           </div>
         </div>
@@ -265,11 +270,17 @@ export default function Home() {
             </nav>
           </div>
         </footer>
+        
+        {/* Color Palette - Fixed Position */}
+        <ColorPalette 
+          currentVariant={currentVariant} 
+          onColorChange={setCurrentVariant} 
+        />
       </div>
     </>
   );
 
-  if (['orange', 'stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds'].includes(currentVariant)) {
+  if (['orange', 'stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds', 'bubblecolors', 'spiralwhirlpool', 'crossgalacticocean'].includes(currentVariant)) {
     return <div className={getContainerClass()}>{content}</div>;
   }
 

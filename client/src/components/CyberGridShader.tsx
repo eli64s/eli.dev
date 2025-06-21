@@ -48,8 +48,8 @@ export default function CyberGridShader({
     }
     
     float grid(vec2 p, float scale) {
-      vec2 grid = abs(fract(p * scale) - 0.5);
-      return 1.0 - smoothstep(0.0, 0.05, min(grid.x, grid.y));
+      vec2 gridLines = abs(fract(p * scale) - 0.5);
+      return 1.0 - smoothstep(0.0, 0.05, min(gridLines.x, gridLines.y));
     }
     
     float hexGrid(vec2 p, float scale) {

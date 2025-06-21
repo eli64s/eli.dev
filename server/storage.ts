@@ -49,10 +49,7 @@ export class MemStorage implements IStorage {
       { platform: "GitHub", url: "https://github.com/eli64s", icon: "github", order: 1 },
       { platform: "LinkedIn", url: "https://linkedin.com/in/salamieeli", icon: "linkedin", order: 2 },
       { platform: "Twitter", url: "https://twitter.com/eli64s", icon: "twitter", order: 3 },
-      // { platform: "Mastodon", url: "https://mastodon.social/@eli64s", icon: "mastodon", order: 4 },
-      { platform: "Instagram", url: "https://instagram.com/0x.eli", icon: "instagram", order: 5 },
-      // { platform: "Discord", url: "https://discord.gg/eli64s", icon: "discord", order: 6 },
-      // { platform: "Website", url: "https://eli64s.live", icon: "globe", order: 7 }
+      { platform: "Instagram", url: "https://instagram.com/0x.eli", icon: "instagram", order: 4 },
     ];
 
     for (const linkData of socialLinksData) {
@@ -67,12 +64,30 @@ export class MemStorage implements IStorage {
 
     // Create navigation sections
     const navigationData = [
-      
-      // { name: "podcasts", url: "https://eli64s.live/podcasts", order: 1 },
-      // { name: "newsletter", url: "https://eli64s.live/newsletter", order: 2 },
-      // { name: "youtube", url: "https://youtube.com/@eli64s", order: 3 },
-      // { name: "blog", url: "https://eli64s.live/blog", order: 4 },
-      // { name: "dinner", url: "https://eli64s.live/dinner", order: 5 }
+      {
+        title: "Home",
+        url: "/",
+        order: 1,
+        icon: "home",
+      },
+      {
+        title: "About",
+        url: "/about",
+        order: 2,
+        icon: "info",
+      },
+      {
+        title: "Projects",
+        url: "/projects",
+        order: 3,
+        icon: "project-diagram",
+      },
+      {
+        title: "Contact",
+        url: "/contact",
+        order: 4,
+        icon: "envelope",
+      },
     ];
 
     for (const navData of navigationData) {

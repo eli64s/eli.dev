@@ -56,13 +56,6 @@ export default function Home() {
 
   const { data, isLoading, error } = useQuery<PortfolioData>({
     queryKey: ["/api/portfolio"],
-    queryFn: async () => {
-      const response = await fetch("/api/portfolio");
-      if (!response.ok) {
-        throw new Error(`Failed to fetch portfolio data: ${response.status} ${response.statusText}`);
-      }
-      return response.json();
-    },
   });
 
   useEffect(() => {

@@ -65,28 +65,24 @@ export class MemStorage implements IStorage {
     // Create navigation sections
     const navigationData = [
       {
-        title: "Home",
+        name: "Home",
         url: "/",
         order: 1,
-        icon: "home",
       },
       {
-        title: "About",
+        name: "About",
         url: "/about",
         order: 2,
-        icon: "info",
       },
       {
-        title: "Projects",
+        name: "Projects",
         url: "/projects",
         order: 3,
-        icon: "project-diagram",
       },
       {
-        title: "Contact",
+        name: "Contact",
         url: "/contact",
         order: 4,
-        icon: "envelope",
       },
     ];
 

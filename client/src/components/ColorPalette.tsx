@@ -10,12 +10,12 @@ const SHADER_CONFIG = {
   
   // WebGL Shaders
   stringtheory: true,
+  spiralwhirlpool: true,
   waveform: true,
   plasma: true,
   cybergrid: true,
   voronoi: true,
   kaleidoscope: true,
-  mandala: true,
   sdfmorph: true,
   fluiddynamics: true,
   quantumfield: true,
@@ -28,12 +28,12 @@ const SHADER_CONFIG = {
   tunnelvision: true,
   
   // Disabled shaders (set to false to hide)
+  bubblecolors: false,
+  clouds: false,
   orange: false,
   fractalnoise: false,
+  mandala: true,
   mandelbrot: false,
-  clouds: false,
-  bubblecolors: false,
-  spiralwhirlpool: false,
   windowspace: false,
 } as const;
 

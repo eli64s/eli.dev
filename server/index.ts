@@ -60,11 +60,11 @@ async function createApp() {
   return app;
 }
 
-// For serverless deployment (Vercel)
-if (process.env.VERCEL) {
-  export default createApp;
-} else {
-  // For local development
+// Export for serverless deployment (Vercel)
+export default createApp;
+
+// For local development
+if (!process.env.VERCEL) {
   (async () => {
     await createApp();
     

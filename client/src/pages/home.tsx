@@ -3,12 +3,13 @@ import { useState, useEffect } from "react";
 import { 
   FaGithub, 
   FaLinkedin, 
-  FaTwitter, 
   FaInstagram,
+  FaGlobe
 } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import type { Profile, SocialLink, NavigationSection } from "@shared/schema";
 import ShaderBackground from "@/components/ShaderBackground";
-import ColorPalette from "@/components/ColorPalette";
+import ColorPalette, { type ShaderVariant } from "@/components/ColorPalette";
 import StringTheoryShader from "@/components/StringTheoryShader";
 import WaveformShader from "@/components/WaveformShader";
 import PlasmaShader from "@/components/PlasmaShader";
@@ -17,18 +18,15 @@ import VoronoiShader from "@/components/VoronoiShader";
 import KaleidoscopeShader from "@/components/KaleidoscopeShader";
 import FractalMandalaShader from "@/components/FractalMandalaShader";
 import SDFMorphShader from "@/components/SDFMorphShader";
-import FractalNoiseShader from "@/components/FractalNoiseShader";
 import FluidDynamicsShader from "@/components/FluidDynamicsShader";
 import QuantumFieldShader from "@/components/QuantumFieldShader";
 import ZippyZapsShader from "@/components/ZippyZapsShader";
-import MandelbrotShader from "@/components/MandelbrotShader";
 import JuliaSetShader from "@/components/JuliaSetShader";
 import BurningShipShader from "@/components/BurningShipShader";
 import TurbulenceShader from "@/components/TurbulenceShader";
-import CloudsShader from "@/components/CloudsShader";
-import BubbleColorsShader from "@/components/BubbleColorsShader";
-import SpiralWhirlpoolShader from "@/components/SpiralWhirlpoolShader";
 import CrossGalacticOceanShader from "@/components/CrossGalacticOceanShader";
+import GalaxyShader from "@/components/GalaxyShader";
+import TunnelVisionShader from "@/components/TunnelVisionShader";
 
 import ShaderControls from "@/components/ShaderControls";
 import ProjectShowcase from "@/components/ProjectShowcase";
@@ -42,13 +40,13 @@ interface PortfolioData {
 const iconMap = {
   github: FaGithub,
   linkedin: FaLinkedin,
-  twitter: FaTwitter,
   instagram: FaInstagram,
+  x: FaXTwitter,
 };
 
 export default function Home() {
   const [keyboardNavigation, setKeyboardNavigation] = useState(false);
-  const [currentVariant, setCurrentVariant] = useState<'blue' | 'animated' | 'radial' | 'orange' | 'stringtheory' | 'waveform' | 'plasma' | 'cybergrid' | 'voronoi' | 'kaleidoscope' | 'mandala' | 'sdfmorph' | 'fractalnoise' | 'fluiddynamics' | 'quantumfield' | 'zippyzaps' | 'mandelbrot' | 'juliaset' | 'burningship' | 'turbulence' | 'clouds' | 'bubblecolors' | 'spiralwhirlpool' | 'crossgalacticocean'>('radial');
+  const [currentVariant, setCurrentVariant] = useState<ShaderVariant>('tunnelvision');
   
   // Shader controls state
   const [shaderSpeed, setShaderSpeed] = useState(1.0);
@@ -110,15 +108,19 @@ export default function Home() {
   };
 
   const getBackgroundVariant = () => {
-    if (['orange', 'stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds', 'bubblecolors', 'spiralwhirlpool', 'crossgalacticocean'].includes(currentVariant)) return null;
+    // Return null for WebGL shaders and orange (which has special styling)
+    const webglShaders: ShaderVariant[] = ['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'juliaset', 'burningship', 'turbulence', 'crossgalacticocean', 'galaxy', 'tunnelvision', 'fractalnoise', 'mandelbrot', 'clouds', 'bubblecolors', 'spiralwhirlpool', 'windowspace'];
+    if (webglShaders.includes(currentVariant) || currentVariant === 'orange') return null;
     return currentVariant;
   };
 
   const getContainerClass = () => {
+    const webglShaders: ShaderVariant[] = ['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'juliaset', 'burningship', 'turbulence', 'crossgalacticocean', 'galaxy', 'tunnelvision', 'fractalnoise', 'mandelbrot', 'clouds', 'bubblecolors', 'spiralwhirlpool', 'windowspace'];
+    
     if (currentVariant === 'orange') {
       return `min-h-screen vibrant-orange text-white flex flex-col font-sans ${keyboardNavigation ? 'keyboard-navigation' : ''}`;
     }
-    if (['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds', 'bubblecolors', 'spiralwhirlpool', 'crossgalacticocean'].includes(currentVariant)) {
+    if (webglShaders.includes(currentVariant)) {
       return `min-h-screen text-white flex flex-col font-sans relative overflow-hidden ${keyboardNavigation ? 'keyboard-navigation' : ''}`;
     }
     return `min-h-screen text-white flex flex-col font-sans ${keyboardNavigation ? 'keyboard-navigation' : ''}`;
@@ -149,40 +151,45 @@ export default function Home() {
         return <FractalMandalaShader {...shaderProps} />;
       case 'sdfmorph':
         return <SDFMorphShader {...shaderProps} />;
-      case 'fractalnoise':
-        return <FractalNoiseShader {...shaderProps} />;
       case 'fluiddynamics':
         return <FluidDynamicsShader {...shaderProps} />;
       case 'quantumfield':
         return <QuantumFieldShader {...shaderProps} />;
       case 'zippyzaps':
         return <ZippyZapsShader {...shaderProps} />;
-      case 'mandelbrot':
-        return <MandelbrotShader {...shaderProps} />;
       case 'juliaset':
         return <JuliaSetShader {...shaderProps} />;
       case 'burningship':
         return <BurningShipShader {...shaderProps} />;
       case 'turbulence':
         return <TurbulenceShader {...shaderProps} />;
-      case 'clouds':
-        return <CloudsShader {...shaderProps} />;
-      case 'bubblecolors':
-        return <BubbleColorsShader {...shaderProps} />;
-      case 'spiralwhirlpool':
-        return <SpiralWhirlpoolShader {...shaderProps} />;
       case 'crossgalacticocean':
         return <CrossGalacticOceanShader {...shaderProps} />;
+      case 'galaxy':
+        return <GalaxyShader {...shaderProps} />;
+      case 'tunnelvision':
+        return <TunnelVisionShader {...shaderProps} />;
+      // Disabled shaders - cases for when they might be enabled
+      case 'fractalnoise':
+      case 'mandelbrot':
+      case 'clouds':
+      case 'bubblecolors':
+      case 'spiralwhirlpool':
+      case 'windowspace':
+        // These shaders are disabled but cases exist for future use
+        console.warn(`Shader ${currentVariant} is disabled in SHADER_CONFIG`);
+        return null;
       default:
         return null;
     }
   };
 
-  const showShaderControls = ['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds', 'bubblecolors', 'spiralwhirlpool', 'crossgalacticocean'].includes(currentVariant);
+  const webglShaders: ShaderVariant[] = ['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'juliaset', 'burningship', 'turbulence', 'crossgalacticocean', 'galaxy', 'tunnelvision', 'fractalnoise', 'mandelbrot', 'clouds', 'bubblecolors', 'spiralwhirlpool', 'windowspace'];
+  const showShaderControls = webglShaders.includes(currentVariant);
 
   const content = (
     <>
-      {['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds', 'bubblecolors', 'spiralwhirlpool', 'crossgalacticocean'].includes(currentVariant) && (
+      {webglShaders.includes(currentVariant) && (
         <div className="absolute inset-0 z-0">
           {renderShaderBackground()}
         </div>
@@ -280,7 +287,7 @@ export default function Home() {
     </>
   );
 
-  if (['orange', 'stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds', 'bubblecolors', 'spiralwhirlpool', 'crossgalacticocean'].includes(currentVariant)) {
+  if (['orange', 'stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds', 'bubblecolors', 'spiralwhirlpool', 'crossgalacticocean', 'galaxy', 'windowspace'].includes(currentVariant)) {
     return <div className={getContainerClass()}>{content}</div>;
   }
 

@@ -1,16 +1,54 @@
 import { useState } from 'react';
 import ShaderBackground from './ShaderBackground';
 
+// Shader Configuration - Set to false to hide shaders from the UI
+const SHADER_CONFIG = {
+  // Basic gradients
+  blue: true,
+  animated: true,
+  radial: true,
+  
+  // WebGL Shaders
+  stringtheory: true,
+  waveform: true,
+  plasma: true,
+  cybergrid: true,
+  voronoi: true,
+  kaleidoscope: true,
+  mandala: true,
+  sdfmorph: true,
+  fluiddynamics: true,
+  quantumfield: true,
+  zippyzaps: true,
+  juliaset: true,
+  burningship: true,
+  turbulence: true,
+  crossgalacticocean: true,
+  galaxy: true,
+  tunnelvision: true,
+  
+  // Disabled shaders (set to false to hide)
+  orange: false,
+  fractalnoise: false,
+  mandelbrot: false,
+  clouds: false,
+  bubblecolors: false,
+  spiralwhirlpool: false,
+  windowspace: false,
+} as const;
+
+export type ShaderVariant = keyof typeof SHADER_CONFIG;
+
 interface ColorPaletteProps {
-  onColorChange?: (variant: 'blue' | 'animated' | 'radial' | 'orange' | 'stringtheory' | 'waveform' | 'plasma' | 'cybergrid' | 'voronoi' | 'kaleidoscope' | 'mandala' | 'sdfmorph' | 'fractalnoise' | 'fluiddynamics' | 'quantumfield' | 'zippyzaps' | 'mandelbrot' | 'juliaset' | 'burningship' | 'turbulence' | 'clouds') => void;
+  onColorChange?: (variant: ShaderVariant) => void;
 }
 
 interface ColorPaletteInternalProps extends ColorPaletteProps {
-  currentVariant?: 'blue' | 'animated' | 'radial' | 'orange' | 'stringtheory' | 'waveform' | 'plasma' | 'cybergrid' | 'voronoi' | 'kaleidoscope' | 'mandala' | 'sdfmorph' | 'fractalnoise' | 'fluiddynamics' | 'quantumfield' | 'zippyzaps' | 'mandelbrot' | 'juliaset' | 'burningship' | 'turbulence' | 'clouds';
+  currentVariant?: ShaderVariant;
 }
 
-export default function ColorPalette({ onColorChange, currentVariant = 'radial' }: ColorPaletteInternalProps) {
-  const handleColorSelect = (variant: 'blue' | 'animated' | 'radial' | 'orange' | 'stringtheory' | 'waveform' | 'plasma' | 'cybergrid' | 'voronoi' | 'kaleidoscope' | 'mandala' | 'sdfmorph' | 'fractalnoise' | 'fluiddynamics' | 'quantumfield' | 'zippyzaps' | 'mandelbrot' | 'juliaset' | 'burningship' | 'turbulence' | 'clouds') => {
+export default function ColorPalette({ onColorChange, currentVariant = 'tunnelvision' }: ColorPaletteInternalProps) {
+  const handleColorSelect = (variant: ShaderVariant) => {
     onColorChange?.(variant);
   };
 
@@ -71,11 +109,6 @@ export default function ColorPalette({ onColorChange, currentVariant = 'radial' 
       preview: 'radial-gradient(circle at 40% 60%, hsl(320, 100%, 60%) 0%, hsl(280, 100%, 50%) 30%, hsl(240, 100%, 40%) 70%, hsl(200, 100%, 30%) 100%)'
     },
     {
-      variant: 'fractalnoise' as const,
-      name: 'Fractal Noise',
-      preview: 'linear-gradient(45deg, hsl(260, 100%, 40%) 0%, hsl(300, 100%, 50%) 25%, hsl(340, 100%, 60%) 50%, hsl(20, 100%, 50%) 75%, hsl(60, 100%, 60%) 100%)'
-    },
-    {
       variant: 'fluiddynamics' as const,
       name: 'Fluid Flow',
       preview: 'radial-gradient(ellipse at 30% 20%, hsl(200, 100%, 50%) 0%, hsl(220, 100%, 40%) 40%, hsl(280, 100%, 50%) 70%, hsl(320, 100%, 40%) 100%)'
@@ -89,11 +122,6 @@ export default function ColorPalette({ onColorChange, currentVariant = 'radial' 
       variant: 'zippyzaps' as const,
       name: 'Zippy Zaps',
       preview: 'radial-gradient(circle at 30% 40%, hsl(240, 100%, 80%) 0%, hsl(280, 100%, 60%) 25%, hsl(180, 100%, 70%) 50%, hsl(60, 100%, 80%) 75%, hsl(300, 100%, 90%) 100%)'
-    },
-    {
-      variant: 'mandelbrot' as const,
-      name: 'Mandelbrot',
-      preview: 'radial-gradient(circle at 60% 40%, hsl(280, 100%, 40%) 0%, hsl(320, 100%, 60%) 25%, hsl(200, 100%, 30%) 50%, hsl(40, 100%, 50%) 75%, hsl(300, 100%, 70%) 100%)'
     },
     {
       variant: 'juliaset' as const,
@@ -111,28 +139,72 @@ export default function ColorPalette({ onColorChange, currentVariant = 'radial' 
       preview: 'radial-gradient(ellipse at 30% 60%, hsl(200, 90%, 60%) 0%, hsl(240, 80%, 50%) 30%, hsl(180, 70%, 40%) 60%, hsl(220, 85%, 65%) 100%)'
     },
     {
+      variant: 'crossgalacticocean' as const,
+      name: 'Cross-Galactic Ocean',
+      preview: 'linear-gradient(180deg, hsl(215, 70%, 15%) 0%, hsl(180, 100%, 60%) 40%, hsl(300, 100%, 70%) 70%, hsl(45, 100%, 70%) 100%)'
+    },
+    {
+      variant: 'galaxy' as const,
+      name: 'Galaxy of Universes',
+      preview: 'radial-gradient(circle at 30% 30%, hsl(280, 100%, 60%) 0%, hsl(240, 100%, 40%) 30%, hsl(320, 100%, 50%) 60%, hsl(200, 100%, 30%) 100%)'
+    },
+    {
+      variant: 'tunnelvision' as const,
+      name: 'Tunnel Vision',
+      preview: 'radial-gradient(circle at 50% 50%, hsl(280, 100%, 60%) 0%, hsl(240, 100%, 40%) 30%, hsl(180, 100%, 50%) 60%, hsl(300, 100%, 30%) 100%)'
+    },
+    // Disabled shaders (controlled by SHADER_CONFIG)
+    {
+      variant: 'orange' as const,
+      name: 'Classic Orange',
+      preview: 'linear-gradient(135deg, #FF6B35 0%, #FF5722 100%)'
+    },
+    {
+      variant: 'fractalnoise' as const,
+      name: 'Fractal Noise',
+      preview: 'linear-gradient(45deg, hsl(260, 100%, 40%) 0%, hsl(300, 100%, 50%) 25%, hsl(340, 100%, 60%) 50%, hsl(20, 100%, 50%) 75%, hsl(60, 100%, 60%) 100%)'
+    },
+    {
+      variant: 'mandelbrot' as const,
+      name: 'Mandelbrot',
+      preview: 'radial-gradient(circle at 60% 40%, hsl(280, 100%, 40%) 0%, hsl(320, 100%, 60%) 25%, hsl(200, 100%, 30%) 50%, hsl(40, 100%, 50%) 75%, hsl(300, 100%, 70%) 100%)'
+    },
+    {
       variant: 'clouds' as const,
       name: 'Clouds',
       preview: 'linear-gradient(135deg, hsl(220, 40%, 85%) 0%, hsl(210, 50%, 70%) 30%, hsl(230, 30%, 90%) 60%, hsl(200, 45%, 75%) 100%)'
     },
     {
-      variant: 'orange' as const,
-      name: 'Classic Orange',
-      preview: 'linear-gradient(135deg, #FF6B35 0%, #FF5722 100%)'
+      variant: 'bubblecolors' as const,
+      name: 'Bubble Colors',
+      preview: 'radial-gradient(circle at 30% 70%, hsl(30, 100%, 60%) 0%, hsl(300, 100%, 70%) 25%, hsl(200, 100%, 80%) 50%, hsl(60, 100%, 75%) 75%, hsl(320, 100%, 65%) 100%)'
+    },
+    {
+      variant: 'spiralwhirlpool' as const,
+      name: 'Spiral Whirlpool',
+      preview: 'conic-gradient(from 45deg at 50% 50%, hsl(240, 100%, 70%) 0deg, hsl(300, 100%, 60%) 90deg, hsl(200, 100%, 80%) 180deg, hsl(280, 100%, 70%) 270deg, hsl(240, 100%, 70%) 360deg)'
+    },
+    {
+      variant: 'windowspace' as const,
+      name: 'Window in Space',
+      preview: 'linear-gradient(45deg, hsl(220, 100%, 30%) 0%, hsl(280, 100%, 40%) 25%, hsl(200, 100%, 50%) 50%, hsl(240, 100%, 60%) 75%, hsl(300, 100%, 40%) 100%)'
     }
   ];
 
+  // Filter color options based on configuration
+  const enabledColorOptions = colorOptions.filter(option => SHADER_CONFIG[option.variant]);
+
   const handleShuffle = () => {
-    const allVariants = colorOptions.map(option => option.variant);
-    const currentIndex = allVariants.indexOf(currentVariant);
+    const enabledVariants = enabledColorOptions.map(option => option.variant);
+    const currentIndex = enabledVariants.indexOf(currentVariant);
     let randomIndex;
     
     // Ensure we don't select the same theme
     do {
-      randomIndex = Math.floor(Math.random() * allVariants.length);
-    } while (randomIndex === currentIndex && allVariants.length > 1);
+      randomIndex = Math.floor(Math.random() * enabledVariants.length);
+    } while (randomIndex === currentIndex && enabledVariants.length > 1);
     
-    handleColorSelect(allVariants[randomIndex] as any);
+    handleColorSelect(enabledVariants[randomIndex]);
   };
 
   return (
@@ -154,10 +226,10 @@ export default function ColorPalette({ onColorChange, currentVariant = 'radial' 
         </button>
       </div>
       <div className="flex gap-2 overflow-x-auto max-w-screen-lg">
-        {colorOptions.map((option) => (
+        {enabledColorOptions.map((option) => (
           <button
             key={option.variant}
-            onClick={() => handleColorSelect(option.variant as any)}
+            onClick={() => handleColorSelect(option.variant)}
             className={`
               w-16 h-16 rounded-lg border-2 transition-all duration-200 relative overflow-hidden flex-shrink-0
               ${currentVariant === option.variant 
@@ -169,8 +241,8 @@ export default function ColorPalette({ onColorChange, currentVariant = 'radial' 
             title={option.name}
           >
             {currentVariant === option.variant && (
-              <div className="absolute inset-0 bg-white/20 flex items-center justify-center">
-                <div className="w-2 h-2 bg-white rounded-full"></div>
+              <div className="absolute inset-0 bg-white/10 backdrop-blur-sm flex items-center justify-center border-2 border-white/40 rounded-lg">
+                <div className="w-3 h-3 bg-white rounded-full shadow-lg animate-pulse"></div>
               </div>
             )}
           </button>

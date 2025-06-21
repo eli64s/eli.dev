@@ -11,7 +11,7 @@ export default function ProjectShowcase({ className = "" }: ProjectShowcaseProps
       description: "AI-powered README generator",
       url: "https://github.com/eli64s/readme-ai",
       icon: (
-        <svg width="48" height="48" viewBox="0 0 256 256" className="drop-shadow-lg">
+        <svg width="64" height="64" viewBox="0 0 256 256" className="drop-shadow-lg">
           <defs>
             <linearGradient id="readme-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" style={{stopColor: "#4169E1"}} />
@@ -36,7 +36,7 @@ export default function ProjectShowcase({ className = "" }: ProjectShowcaseProps
       description: "Marketing architecture tool",
       url: "https://github.com/eli64s/markitecture",
       icon: (
-        <svg width="48" height="48" viewBox="0 0 256 256" className="drop-shadow-lg">
+        <svg width="64" height="64" viewBox="0 0 256 256" className="drop-shadow-lg">
           <defs>
             <linearGradient id="markitect-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="20%" style={{stopColor: "#FFD700"}} />
@@ -63,7 +63,7 @@ export default function ProjectShowcase({ className = "" }: ProjectShowcaseProps
       description: "Code search using embeddings",
       url: "https://cookbook.openai.com/examples/code_search_using_embeddings",
       icon: (
-        <svg width="48" height="48" viewBox="0 0 256 256" className="drop-shadow-lg">
+        <svg width="64" height="64" viewBox="0 0 256 256" className="drop-shadow-lg">
           <defs>
             <radialGradient id="openai-bg" cx="50%" cy="50%" r="75%">
               <stop offset="0%" style={{stopColor: "#1A1A1A"}} />
@@ -89,24 +89,24 @@ export default function ProjectShowcase({ className = "" }: ProjectShowcaseProps
   return (
     <div className={`flex flex-col items-center space-y-6 ${className}`}>
       <h3 className="text-xl font-semibold text-white/90 mb-2">Open Source Projects</h3>
-      <div className="flex items-center justify-center space-x-8">
+      <div className="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-6 lg:space-x-10">
         {projects.map((project, index) => (
           <a
             key={project.name}
             href={project.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col items-center space-y-3 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:scale-105 cursor-pointer"
+            className="group flex flex-col items-center space-y-4 p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:scale-105 cursor-pointer w-full md:w-auto max-w-xs"
           >
             <div className="relative transform group-hover:rotate-3 transition-transform duration-300">
               {project.icon}
               <div className="absolute inset-0 bg-gradient-to-t from-white/10 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
             <div className="text-center">
-              <h4 className="text-sm font-medium text-white/90 group-hover:text-white transition-colors duration-300">
+              <h4 className="text-base font-medium text-white/90 group-hover:text-white transition-colors duration-300">
                 {project.name}
               </h4>
-              <p className="text-xs text-white/60 group-hover:text-white/80 transition-colors duration-300 mt-1">
+              <p className="text-sm text-white/60 group-hover:text-white/80 transition-colors duration-300 mt-1">
                 {project.description}
               </p>
             </div>

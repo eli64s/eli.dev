@@ -1,4 +1,11 @@
-# Portfolio Application
+## Portfolio Site
+
+Experimenting with various shaders and visual themes for my portfolio site. Cheers (⌐■_■)ノ☕︎
+
+---
+
+<!-- #
+Portfolio Application
 
 ## Overview
 
@@ -129,3 +136,4 @@ The application is configured for deployment with the following setup:
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+-->

@@ -48,7 +48,7 @@ export class MemStorage implements IStorage {
     const socialLinksData = [
       { platform: "GitHub", url: "https://github.com/eli64s", icon: "github", order: 1 },
       { platform: "LinkedIn", url: "https://linkedin.com/in/salamieeli", icon: "linkedin", order: 2 },
-      { platform: "Twitter", url: "https://twitter.com/eli64s", icon: "twitter", order: 3 },
+      { platform: "X", url: "https://x.com/eli64s", icon: "x", order: 3 },
       { platform: "Instagram", url: "https://instagram.com/0x.eli", icon: "instagram", order: 4 },
     ];
 

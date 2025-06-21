@@ -4,7 +4,11 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
+<<<<<<< HEAD
       "destination": "/api/$1"
+=======
+      "destination": "/api/index.cjs"
+>>>>>>> parent of 70974dd (Simplify API to direct Vercel handler with ESM syntax)
     }
   ]
 }

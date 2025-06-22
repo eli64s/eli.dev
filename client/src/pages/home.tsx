@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
-import { 
-  FaGithub, 
-  FaLinkedin, 
+import {
+  FaGithub,
+  FaLinkedin,
   FaInstagram,
   FaGlobe
 } from "react-icons/fa";
@@ -16,12 +16,12 @@ import PlasmaShader from "@/components/PlasmaShader";
 import CyberGridShader from "@/components/CyberGridShader";
 import VoronoiShader from "@/components/VoronoiShader";
 import KaleidoscopeShader from "@/components/KaleidoscopeShader";
-import FractalMandalaShader from "@/components/FractalMandalaShader";
+// import FractalMandalaShader from "@/components/FractalMandalaShader";
 import SDFMorphShader from "@/components/SDFMorphShader";
 import FluidDynamicsShader from "@/components/FluidDynamicsShader";
 import QuantumFieldShader from "@/components/QuantumFieldShader";
-import ZippyZapsShader from "@/components/ZippyZapsShader";
-import JuliaSetShader from "@/components/JuliaSetShader";
+// import ZippyZapsShader from "@/components/ZippyZapsShader";
+// import JuliaSetShader from "@/components/JuliaSetShader";
 import BurningShipShader from "@/components/BurningShipShader";
 import TurbulenceShader from "@/components/TurbulenceShader";
 import CrossGalacticOceanShader from "@/components/CrossGalacticOceanShader";
@@ -47,7 +47,7 @@ const iconMap = {
 export default function Home() {
   const [keyboardNavigation, setKeyboardNavigation] = useState(false);
   const [currentVariant, setCurrentVariant] = useState<ShaderVariant>('tunnelvision');
-  
+
   // Shader controls state
   const [shaderSpeed, setShaderSpeed] = useState(1.0);
   const [shaderColorHue, setShaderColorHue] = useState(0.5);
@@ -109,14 +109,16 @@ export default function Home() {
 
   const getBackgroundVariant = () => {
     // Return null for WebGL shaders and orange (which has special styling)
-    const webglShaders: ShaderVariant[] = ['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'juliaset', 'burningship', 'turbulence', 'crossgalacticocean', 'galaxy', 'tunnelvision', 'fractalnoise', 'mandelbrot', 'clouds', 'bubblecolors', 'spiralwhirlpool', 'windowspace'];
+    const webglShaders: ShaderVariant[] = ['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'sdfmorph', 'fluiddynamics',
+      'quantumfield', 'burningship', 'turbulence', 'crossgalacticocean', 'galaxy', 'tunnelvision', 'spiralwhirlpool', 'orange'];
     if (webglShaders.includes(currentVariant) || currentVariant === 'orange') return null;
     return currentVariant;
   };
 
   const getContainerClass = () => {
-    const webglShaders: ShaderVariant[] = ['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'juliaset', 'burningship', 'turbulence', 'crossgalacticocean', 'galaxy', 'tunnelvision', 'fractalnoise', 'mandelbrot', 'clouds', 'bubblecolors', 'spiralwhirlpool', 'windowspace'];
-    
+    const webglShaders: ShaderVariant[] = ['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'sdfmorph', 'fluiddynamics',
+      'quantumfield', 'burningship', 'turbulence', 'crossgalacticocean', 'galaxy', 'tunnelvision', 'spiralwhirlpool', 'orange'];
+
     if (currentVariant === 'orange') {
       return `min-h-screen vibrant-orange text-white flex flex-col font-sans ${keyboardNavigation ? 'keyboard-navigation' : ''}`;
     }
@@ -147,18 +149,18 @@ export default function Home() {
         return <VoronoiShader {...shaderProps} />;
       case 'kaleidoscope':
         return <KaleidoscopeShader {...shaderProps} />;
-      case 'mandala':
-        return <FractalMandalaShader {...shaderProps} />;
+      // case 'mandala':
+      //   return <FractalMandalaShader {...shaderProps} />;
       case 'sdfmorph':
         return <SDFMorphShader {...shaderProps} />;
       case 'fluiddynamics':
         return <FluidDynamicsShader {...shaderProps} />;
       case 'quantumfield':
         return <QuantumFieldShader {...shaderProps} />;
-      case 'zippyzaps':
-        return <ZippyZapsShader {...shaderProps} />;
-      case 'juliaset':
-        return <JuliaSetShader {...shaderProps} />;
+      // case 'zippyzaps':
+      //   return <ZippyZapsShader {...shaderProps} />;
+      // case 'juliaset':
+      //   return <JuliaSetShader {...shaderProps} />;
       case 'burningship':
         return <BurningShipShader {...shaderProps} />;
       case 'turbulence':
@@ -170,12 +172,7 @@ export default function Home() {
       case 'tunnelvision':
         return <TunnelVisionShader {...shaderProps} />;
       // Disabled shaders - cases for when they might be enabled
-      case 'fractalnoise':
-      case 'mandelbrot':
-      case 'clouds':
-      case 'bubblecolors':
       case 'spiralwhirlpool':
-      case 'windowspace':
         // These shaders are disabled but cases exist for future use
         console.warn(`Shader ${currentVariant} is disabled in SHADER_CONFIG`);
         return null;
@@ -184,7 +181,8 @@ export default function Home() {
     }
   };
 
-  const webglShaders: ShaderVariant[] = ['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'juliaset', 'burningship', 'turbulence', 'crossgalacticocean', 'galaxy', 'tunnelvision', 'fractalnoise', 'mandelbrot', 'clouds', 'bubblecolors', 'spiralwhirlpool', 'windowspace'];
+  const webglShaders: ShaderVariant[] = ['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'sdfmorph', 'fluiddynamics',
+    'quantumfield', 'burningship', 'turbulence', 'crossgalacticocean', 'galaxy', 'tunnelvision', 'spiralwhirlpool', 'orange'];
   const showShaderControls = webglShaders.includes(currentVariant);
 
   const content = (
@@ -217,9 +215,8 @@ export default function Home() {
             </div>
 
             {/* Name */}
-            <h1 className={`text-4xl md:text-5xl font-bold mb-8 tracking-tight ${
-              currentVariant === 'orange' ? '' : 'text-gradient-blue'
-            } glow-effect`}>
+            <h1 className={`text-4xl md:text-5xl font-bold mb-8 tracking-tight ${currentVariant === 'orange' ? '' : 'text-gradient-blue'
+              } glow-effect`}>
               {data.profile.name}
             </h1>
 
@@ -233,11 +230,10 @@ export default function Home() {
                     <button
                       key={link.id}
                       onClick={() => handleSocialClick(link.url)}
-                      className={`text-white transition-all duration-300 transform hover:scale-110 p-3 rounded-full glow-effect hover:shadow-lg ${
-                        currentVariant === 'orange' 
-                          ? 'hover:text-orange-hover hover:shadow-orange-500/20' 
-                          : 'hover:text-cyan-300 glass-effect hover:shadow-cyan-500/20'
-                      }`}
+                      className={`text-white transition-all duration-300 transform hover:scale-110 p-3 rounded-full glow-effect hover:shadow-lg ${currentVariant === 'orange'
+                        ? 'hover:text-orange-hover hover:shadow-orange-500/20'
+                        : 'hover:text-cyan-300 glass-effect hover:shadow-cyan-500/20'
+                        }`}
                       aria-label={`${link.platform} Profile`}
                     >
                       <IconComponent className="text-2xl md:text-3xl" />
@@ -263,9 +259,8 @@ export default function Home() {
                   <div key={section.id} className="flex items-center">
                     <button
                       onClick={() => handleNavigationClick(section.url)}
-                      className={`text-white/90 text-sm md:text-base font-medium transition-all duration-200 hover:underline underline-offset-4 px-2 py-1 rounded hover:bg-white/10 ${
-                        currentVariant === 'orange' ? 'hover:text-white' : 'hover:text-cyan-300'
-                      }`}
+                      className={`text-white/90 text-sm md:text-base font-medium transition-all duration-200 hover:underline underline-offset-4 px-2 py-1 rounded hover:bg-white/10 ${currentVariant === 'orange' ? 'hover:text-white' : 'hover:text-cyan-300'
+                        }`}
                     >
                       {section.name}
                     </button>
@@ -277,23 +272,24 @@ export default function Home() {
             </nav>
           </div>
         </footer>
-        
+
         {/* Color Palette - Fixed Position */}
-        <ColorPalette 
-          currentVariant={currentVariant} 
-          onColorChange={setCurrentVariant} 
+        <ColorPalette
+          currentVariant={currentVariant}
+          onColorChange={setCurrentVariant}
         />
       </div>
     </>
   );
 
-  if (['orange', 'stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds', 'bubblecolors', 'spiralwhirlpool', 'crossgalacticocean', 'galaxy', 'windowspace'].includes(currentVariant)) {
+  if (['orange', 'stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'sdfmorph',
+    'fluiddynamics', 'quantumfield', 'burningship', 'turbulence', 'crossgalacticocean', 'galaxy', 'tunnelvision', 'spiralwhirlpool'].includes(currentVariant)) {
     return <div className={getContainerClass()}>{content}</div>;
   }
 
   return (
-    <ShaderBackground 
-      variant={getBackgroundVariant() as 'blue' | 'animated' | 'radial'} 
+    <ShaderBackground
+      variant={getBackgroundVariant() as 'blue' | 'animated' | 'radial'}
       className={getContainerClass()}
     >
       {content}

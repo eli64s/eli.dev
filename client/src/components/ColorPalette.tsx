@@ -6,8 +6,8 @@ const SHADER_CONFIG = {
   // Basic gradients
   blue: true,
   animated: true,
-  radial: true,
-  
+  radial: false,
+
   // WebGL Shaders
   stringtheory: true,
   spiralwhirlpool: true,
@@ -19,22 +19,22 @@ const SHADER_CONFIG = {
   sdfmorph: true,
   fluiddynamics: true,
   quantumfield: true,
-  zippyzaps: true,
-  juliaset: true,
+  // zippyzaps:false,
+  // juliaset: false,
   burningship: true,
   turbulence: true,
   crossgalacticocean: true,
   galaxy: true,
   tunnelvision: true,
-  
+
   // Disabled shaders (set to false to hide)
-  bubblecolors: false,
-  clouds: false,
-  orange: false,
-  fractalnoise: false,
-  mandala: true,
-  mandelbrot: false,
-  windowspace: false,
+  // bubblecolors: false,
+  // clouds: false,
+  orange: true,
+  // fractalnoise: false,
+  // mandala: true,
+  // mandelbrot: false,
+  // windowspace: false,
 } as const;
 
 export type ShaderVariant = keyof typeof SHADER_CONFIG;
@@ -47,7 +47,7 @@ interface ColorPaletteInternalProps extends ColorPaletteProps {
   currentVariant?: ShaderVariant;
 }
 
-export default function ColorPalette({ onColorChange, currentVariant = 'tunnelvision' }: ColorPaletteInternalProps) {
+export default function ColorPalette({ onColorChange, currentVariant = 'radial' }: ColorPaletteInternalProps) {
   const handleColorSelect = (variant: ShaderVariant) => {
     onColorChange?.(variant);
   };
@@ -98,11 +98,11 @@ export default function ColorPalette({ onColorChange, currentVariant = 'tunnelvi
       name: 'Kaleidoscope',
       preview: 'conic-gradient(from 0deg at 50% 50%, hsl(300, 100%, 60%), hsl(240, 100%, 50%), hsl(180, 100%, 40%), hsl(120, 100%, 50%), hsl(60, 100%, 60%), hsl(300, 100%, 60%))'
     },
-    {
-      variant: 'mandala' as const,
-      name: 'Sacred Mandala',
-      preview: 'radial-gradient(circle at 50% 50%, hsl(45, 100%, 70%) 0%, hsl(30, 100%, 60%) 30%, hsl(320, 100%, 50%) 60%, hsl(240, 100%, 30%) 100%)'
-    },
+    // {
+    //   variant: 'mandala' as const,
+    //   name: 'Sacred Mandala',
+    //   preview: 'radial-gradient(circle at 50% 50%, hsl(45, 100%, 70%) 0%, hsl(30, 100%, 60%) 30%, hsl(320, 100%, 50%) 60%, hsl(240, 100%, 30%) 100%)'
+    // },
     {
       variant: 'sdfmorph' as const,
       name: 'SDF Morph',
@@ -118,16 +118,16 @@ export default function ColorPalette({ onColorChange, currentVariant = 'tunnelvi
       name: 'Quantum Field',
       preview: 'conic-gradient(from 45deg at 50% 50%, hsl(240, 100%, 60%) 0deg, hsl(280, 100%, 70%) 72deg, hsl(200, 100%, 50%) 144deg, hsl(160, 100%, 40%) 216deg, hsl(240, 100%, 60%) 288deg, hsl(280, 100%, 70%) 360deg)'
     },
-    {
-      variant: 'zippyzaps' as const,
-      name: 'Zippy Zaps',
-      preview: 'radial-gradient(circle at 30% 40%, hsl(240, 100%, 80%) 0%, hsl(280, 100%, 60%) 25%, hsl(180, 100%, 70%) 50%, hsl(60, 100%, 80%) 75%, hsl(300, 100%, 90%) 100%)'
-    },
-    {
-      variant: 'juliaset' as const,
-      name: 'Julia Set',
-      preview: 'conic-gradient(from 90deg at 30% 70%, hsl(200, 100%, 70%) 0deg, hsl(260, 100%, 50%) 90deg, hsl(320, 100%, 60%) 180deg, hsl(40, 100%, 60%) 270deg, hsl(200, 100%, 70%) 360deg)'
-    },
+    // {
+    //   variant: 'zippyzaps' as const,
+    //   name: 'Zippy Zaps',
+    //   preview: 'radial-gradient(circle at 30% 40%, hsl(240, 100%, 80%) 0%, hsl(280, 100%, 60%) 25%, hsl(180, 100%, 70%) 50%, hsl(60, 100%, 80%) 75%, hsl(300, 100%, 90%) 100%)'
+    // },
+    // {
+    //   variant: 'juliaset' as const,
+    //   name: 'Julia Set',
+    //   preview: 'conic-gradient(from 90deg at 30% 70%, hsl(200, 100%, 70%) 0deg, hsl(260, 100%, 50%) 90deg, hsl(320, 100%, 60%) 180deg, hsl(40, 100%, 60%) 270deg, hsl(200, 100%, 70%) 360deg)'
+    // },
     {
       variant: 'burningship' as const,
       name: 'Burning Ship',
@@ -159,36 +159,36 @@ export default function ColorPalette({ onColorChange, currentVariant = 'tunnelvi
       name: 'Classic Orange',
       preview: 'linear-gradient(135deg, #FF6B35 0%, #FF5722 100%)'
     },
-    {
-      variant: 'fractalnoise' as const,
-      name: 'Fractal Noise',
-      preview: 'linear-gradient(45deg, hsl(260, 100%, 40%) 0%, hsl(300, 100%, 50%) 25%, hsl(340, 100%, 60%) 50%, hsl(20, 100%, 50%) 75%, hsl(60, 100%, 60%) 100%)'
-    },
-    {
-      variant: 'mandelbrot' as const,
-      name: 'Mandelbrot',
-      preview: 'radial-gradient(circle at 60% 40%, hsl(280, 100%, 40%) 0%, hsl(320, 100%, 60%) 25%, hsl(200, 100%, 30%) 50%, hsl(40, 100%, 50%) 75%, hsl(300, 100%, 70%) 100%)'
-    },
-    {
-      variant: 'clouds' as const,
-      name: 'Clouds',
-      preview: 'linear-gradient(135deg, hsl(220, 40%, 85%) 0%, hsl(210, 50%, 70%) 30%, hsl(230, 30%, 90%) 60%, hsl(200, 45%, 75%) 100%)'
-    },
-    {
-      variant: 'bubblecolors' as const,
-      name: 'Bubble Colors',
-      preview: 'radial-gradient(circle at 30% 70%, hsl(30, 100%, 60%) 0%, hsl(300, 100%, 70%) 25%, hsl(200, 100%, 80%) 50%, hsl(60, 100%, 75%) 75%, hsl(320, 100%, 65%) 100%)'
-    },
+    // {
+    //   variant: 'fractalnoise' as const,
+    //   name: 'Fractal Noise',
+    //   preview: 'linear-gradient(45deg, hsl(260, 100%, 40%) 0%, hsl(300, 100%, 50%) 25%, hsl(340, 100%, 60%) 50%, hsl(20, 100%, 50%) 75%, hsl(60, 100%, 60%) 100%)'
+    // },
+    // {
+    //   variant: 'mandelbrot' as const,
+    //   name: 'Mandelbrot',
+    //   preview: 'radial-gradient(circle at 60% 40%, hsl(280, 100%, 40%) 0%, hsl(320, 100%, 60%) 25%, hsl(200, 100%, 30%) 50%, hsl(40, 100%, 50%) 75%, hsl(300, 100%, 70%) 100%)'
+    // },
+    // {
+    //   variant: 'clouds' as const,
+    //   name: 'Clouds',
+    //   preview: 'linear-gradient(135deg, hsl(220, 40%, 85%) 0%, hsl(210, 50%, 70%) 30%, hsl(230, 30%, 90%) 60%, hsl(200, 45%, 75%) 100%)'
+    // },
+    // {
+    //   variant: 'bubblecolors' as const,
+    //   name: 'Bubble Colors',
+    //   preview: 'radial-gradient(circle at 30% 70%, hsl(30, 100%, 60%) 0%, hsl(300, 100%, 70%) 25%, hsl(200, 100%, 80%) 50%, hsl(60, 100%, 75%) 75%, hsl(320, 100%, 65%) 100%)'
+    // },
     {
       variant: 'spiralwhirlpool' as const,
       name: 'Spiral Whirlpool',
       preview: 'conic-gradient(from 45deg at 50% 50%, hsl(240, 100%, 70%) 0deg, hsl(300, 100%, 60%) 90deg, hsl(200, 100%, 80%) 180deg, hsl(280, 100%, 70%) 270deg, hsl(240, 100%, 70%) 360deg)'
-    },
-    {
-      variant: 'windowspace' as const,
-      name: 'Window in Space',
-      preview: 'linear-gradient(45deg, hsl(220, 100%, 30%) 0%, hsl(280, 100%, 40%) 25%, hsl(200, 100%, 50%) 50%, hsl(240, 100%, 60%) 75%, hsl(300, 100%, 40%) 100%)'
     }
+    // {
+    //   variant: 'windowspace' as const,
+    //   name: 'Window in Space',
+    //   preview: 'linear-gradient(45deg, hsl(220, 100%, 30%) 0%, hsl(280, 100%, 40%) 25%, hsl(200, 100%, 50%) 50%, hsl(240, 100%, 60%) 75%, hsl(300, 100%, 40%) 100%)'
+    // }
   ];
 
   // Filter color options based on configuration
@@ -198,12 +198,12 @@ export default function ColorPalette({ onColorChange, currentVariant = 'tunnelvi
     const enabledVariants = enabledColorOptions.map(option => option.variant);
     const currentIndex = enabledVariants.indexOf(currentVariant);
     let randomIndex;
-    
+
     // Ensure we don't select the same theme
     do {
       randomIndex = Math.floor(Math.random() * enabledVariants.length);
     } while (randomIndex === currentIndex && enabledVariants.length > 1);
-    
+
     handleColorSelect(enabledVariants[randomIndex]);
   };
 
@@ -232,8 +232,8 @@ export default function ColorPalette({ onColorChange, currentVariant = 'tunnelvi
             onClick={() => handleColorSelect(option.variant)}
             className={`
               w-16 h-16 rounded-lg border-2 transition-all duration-200 relative overflow-hidden flex-shrink-0
-              ${currentVariant === option.variant 
-                ? 'border-white scale-110 shadow-lg shadow-white/20' 
+              ${currentVariant === option.variant
+                ? 'border-white scale-110 shadow-lg shadow-white/20'
                 : 'border-white/30 hover:border-white/60 hover:scale-105'
               }
             `}

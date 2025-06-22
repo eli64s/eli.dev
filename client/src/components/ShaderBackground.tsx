@@ -1,56 +1,89 @@
-import { useState, useEffect } from 'react';
+// client/src/components/ShaderBackground.tsx
+
+import { type ShaderVariant } from './ColorPalette';
+import BurningShipShader from './BurningShipShader';
+import CrossGalacticOceanShader from './CrossGalacticOceanShader';
+import CyberGridShader from './CyberGridShader';
+import EyeOfDragonShader from './EyeOfDragonShader';
+import FluidDynamicsShader from './FluidDynamicsShader';
+import FractalMandalaShader from './FractalMandalaShader';
+import GalaxyShader from './GalaxyShader';
+import JuliaSetShader from './JuliaSetShader';
+import KaleidoscopeShader from './KaleidoscopeShader';
+import PlasmaShader from './PlasmaShader';
+import QuantumFieldShader from './QuantumFieldShader';
+import SDFMorphShader from './SDFMorphShader';
+import SpiralWhirlpoolShader from './SpiralWhirlpoolShader';
+import StringTheoryShader from './StringTheoryShader';
+import TunnelVisionShader from './TunnelVisionShader';
+import TurbulenceShader from './TurbulenceShader';
+import VoronoiShader from './VoronoiShader';
+import WaveformShader from './WaveformShader';
+import ZippyZapsShader from './ZippyZapsShader';
 
 interface ShaderBackgroundProps {
-  variant?: 'blue' | 'animated' | 'radial';
-  children: React.ReactNode;
-  className?: string;
+  variant: ShaderVariant;
+  speed: number;
+  intensity: number;
+  colorHue: number;
+  colorSaturation: number;
 }
 
-export default function ShaderBackground({ 
-  variant = 'blue', 
-  children, 
-  className = '' 
-}: ShaderBackgroundProps) {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+export default function ShaderBackground({ variant, ...props }: ShaderBackgroundProps) {
+  const shaderClass = "absolute inset-0 w-full h-full -z-10 transition-opacity duration-1000 animate-fade-in";
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) * 100,
-        y: (e.clientY / window.innerHeight) * 100,
-      });
-    };
+  switch (variant) {
+    case 'eyeofdragon':
+      return <EyeOfDragonShader className={shaderClass} {...props} />;
+    case 'burningship':
+      return <BurningShipShader className={shaderClass} {...props} />;
+    case 'crossgalacticocean':
+      return <CrossGalacticOceanShader className={shaderClass} {...props} />;
+    case 'cybergrid':
+      return <CyberGridShader className={shaderClass} {...props} />;
+    case 'fluiddynamics':
+      return <FluidDynamicsShader className={shaderClass} {...props} />;
+    case 'fractalmandala':
+      return <FractalMandalaShader className={shaderClass} {...props} />;
+    case 'galaxy':
+      return <GalaxyShader className={shaderClass} {...props} />;
+    case 'juliaset':
+      return <JuliaSetShader className={shaderClass} {...props} />;
+    case 'kaleidoscope':
+      return <KaleidoscopeShader className={shaderClass} {...props} />;
+    case 'plasma':
+      return <PlasmaShader className={shaderClass} {...props} />;
+    case 'quantumfield':
+      return <QuantumFieldShader className={shaderClass} {...props} />;
+    case 'sdfmorph':
+      return <SDFMorphShader className={shaderClass} {...props} />;
+    case 'spiralwhirlpool':
+      return <SpiralWhirlpoolShader className={shaderClass} {...props} />;
+    case 'stringtheory':
+      return <StringTheoryShader className={shaderClass} {...props} />;
+    case 'tunnelvision':
+      return <TunnelVisionShader className={shaderClass} {...props} />;
+    case 'turbulence':
+      return <TurbulenceShader className={shaderClass} {...props} />;
+    case 'voronoi':
+      return <VoronoiShader className={shaderClass} {...props} />;
+    case 'waveform':
+      return <WaveformShader className={shaderClass} {...props} />;
+    case 'zippyzaps':
+      return <ZippyZapsShader className={shaderClass} {...props} />;
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+    // CSS Gradients (Fallbacks)
+    case 'blue':
+      return <div className={`shader-gradient-blue ${shaderClass}`} />;
+    case 'animated':
+      return <div className={`shader-gradient-animated ${shaderClass}`} />;
+    case 'radial':
+      return <div className={`shader-gradient-radial ${shaderClass}`} />;
+    case 'orange':
+      return <div className={`vibrant-orange ${shaderClass}`} />;
 
-  const getBackgroundClass = () => {
-    switch (variant) {
-      case 'animated':
-        return 'shader-gradient-animated';
-      case 'radial':
-        return 'shader-gradient-radial';
-      default:
-        return 'shader-gradient-blue';
-    }
-  };
-
-  const dynamicStyle = variant === 'radial' ? {
-    background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, 
-      hsl(223, 100%, 45%) 0%,
-      hsl(271, 100%, 35%) 30%,
-      hsl(225, 25%, 8%) 70%,
-      hsl(225, 25%, 5%) 100%
-    )`
-  } : {};
-
-  return (
-    <div 
-      className={`${getBackgroundClass()} ${className}`}
-      style={dynamicStyle}
-    >
-      {children}
-    </div>
-  );
+    default:
+      // Fallback to a default shader if the variant is unknown
+      return <StringTheoryShader className={shaderClass} {...props} />;
+  }
 }

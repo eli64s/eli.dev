@@ -282,8 +282,22 @@ export default function Home() {
     </>
   );
 
-  if (['orange', 'stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'sdfmorph',
-    'fluiddynamics', 'quantumfield', 'burningship', 'turbulence', 'crossgalacticocean', 'galaxy', 'tunnelvision', 'spiralwhirlpool'].includes(currentVariant)) {
+  if ([
+    'stringtheory', 
+    'waveform', 
+    'plasma', 
+    'cybergrid', 
+    'voronoi', 
+    'kaleidoscope',
+    'sdfmorph',
+    'fluiddynamics',
+    'quantumfield', 'burningship',
+    'turbulence',
+    'crossgalacticocean', 
+    'galaxy',
+    'tunnelvision', 
+    'spiralwhirlpool'
+  ].includes(currentVariant)) {
     return <div className={getContainerClass()}>{content}</div>;
   }
 

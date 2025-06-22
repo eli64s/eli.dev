@@ -2,11 +2,11 @@
   "name": "eli.dev",
   "version": "1.0.0",
   "type": "module",
-  "description": "Personal website and blog for Eli",
+  "description": "Eli's personal website blog, and shader fun.",
   "scripts": {
     "dev": "NODE_ENV=development tsx server/index.ts",
-    "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
-    "start": "NODE_ENV=production node dist/index.js",
+    "build": "vite build",
+    "start": "NODE_ENV=production node dist/server/index.js",
     "check": "tsc",
     "db:push": "drizzle-kit push"
   },

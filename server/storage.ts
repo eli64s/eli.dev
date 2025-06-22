@@ -122,21 +122,38 @@ export class MemStorage implements IStorage {
 
   async createProfile(insertProfile: InsertProfile): Promise<Profile> {
     const id = this.currentProfileId++;
-    const profile: Profile = { ...insertProfile, id };
+    const profile: Profile = { 
+      id,
+      name: insertProfile.name,
+      profileImage: insertProfile.profileImage,
+      isActive: insertProfile.isActive !== undefined ? insertProfile.isActive : true
+    };
     this.profiles.set(id, profile);
     return profile;
   }
 
   async createSocialLink(insertSocialLink: InsertSocialLink): Promise<SocialLink> {
     const id = this.currentSocialLinkId++;
-    const socialLink: SocialLink = { ...insertSocialLink, id };
+    const socialLink: SocialLink = {
+      id,
+      profileId: insertSocialLink.profileId,
+      platform: insertSocialLink.platform,
+      url: insertSocialLink.url,
+      icon: insertSocialLink.icon,
+      order: insertSocialLink.order !== undefined ? insertSocialLink.order : 0
+    };
     this.socialLinks.set(id, socialLink);
     return socialLink;
   }
 
   async createNavigationSection(insertNavigationSection: InsertNavigationSection): Promise<NavigationSection> {
     const id = this.currentNavigationSectionId++;
-    const section: NavigationSection = { ...insertNavigationSection, id };
+    const section: NavigationSection = {
+      id,
+      name: insertNavigationSection.name,
+      url: insertNavigationSection.url,
+      order: insertNavigationSection.order !== undefined ? insertNavigationSection.order : 0
+    };
     this.navigationSections.set(id, section);
     return section;
   }

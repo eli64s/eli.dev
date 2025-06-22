@@ -23,67 +23,116 @@ import ZippyZapsShader from './ZippyZapsShader';
 
 interface ShaderBackgroundProps {
   variant: ShaderVariant;
-  speed: number;
-  intensity: number;
-  colorHue: number;
-  colorSaturation: number;
+  speed?: number;
+  intensity?: number;
+  colorHue?: number;
+  colorSaturation?: number;
+  children?: React.ReactNode;
+  className?: string;
 }
 
-export default function ShaderBackground({ variant, ...props }: ShaderBackgroundProps) {
+export default function ShaderBackground({ variant, children, className, ...props }: ShaderBackgroundProps) {
   const shaderClass = "absolute inset-0 w-full h-full -z-10 transition-opacity duration-1000 animate-fade-in";
+  const containerClass = className || "relative min-h-screen";
+  
+  // Filter out className from props to avoid passing it to shader components that might not accept it
+  const shaderProps = { ...props };
 
+  const renderShaderBackground = () => {
+    switch (variant) {
+      case 'eyeofdragon':
+        return <EyeOfDragonShader {...shaderProps} />;
+      case 'burningship':
+        return <BurningShipShader {...shaderProps} />;
+      case 'crossgalacticocean':
+        return <CrossGalacticOceanShader {...shaderProps} />;
+      case 'cybergrid':
+        return <CyberGridShader {...shaderProps} />;
+      case 'fluiddynamics':
+        return <FluidDynamicsShader {...shaderProps} />;
+      case 'fractalmandala':
+        return <FractalMandalaShader {...shaderProps} />;
+      case 'galaxy':
+        return <GalaxyShader {...shaderProps} />;
+      case 'juliaset':
+        return <JuliaSetShader {...shaderProps} />;
+      case 'kaleidoscope':
+        return <KaleidoscopeShader {...shaderProps} />;
+      case 'plasma':
+        return <PlasmaShader {...shaderProps} />;
+      case 'quantumfield':
+        return <QuantumFieldShader {...shaderProps} />;
+      case 'sdfmorph':
+        return <SDFMorphShader {...shaderProps} />;
+      case 'spiralwhirlpool':
+        return <SpiralWhirlpoolShader {...shaderProps} />;
+      case 'stringtheory':
+        return <StringTheoryShader {...shaderProps} />;
+      case 'tunnelvision':
+        return <TunnelVisionShader {...shaderProps} />;
+      case 'turbulence':
+        return <TurbulenceShader {...shaderProps} />;
+      case 'voronoi':
+        return <VoronoiShader {...shaderProps} />;
+      case 'waveform':
+        return <WaveformShader {...shaderProps} />;
+      case 'zippyzaps':
+        return <ZippyZapsShader {...shaderProps} />;
+      default:
+        return <StringTheoryShader {...shaderProps} />;
+    }
+  };
+
+  // For WebGL shaders, wrap them in a container
+  if (variant !== 'blue' && variant !== 'animated' && variant !== 'radial' && variant !== 'orange') {
+    return (
+      <div className={containerClass}>
+        {renderShaderBackground()}
+        {children}
+      </div>
+    );
+  }
+
+  // For CSS gradients, render them directly
   switch (variant) {
-    case 'eyeofdragon':
-      return <EyeOfDragonShader className={shaderClass} {...props} />;
-    case 'burningship':
-      return <BurningShipShader className={shaderClass} {...props} />;
-    case 'crossgalacticocean':
-      return <CrossGalacticOceanShader className={shaderClass} {...props} />;
-    case 'cybergrid':
-      return <CyberGridShader className={shaderClass} {...props} />;
-    case 'fluiddynamics':
-      return <FluidDynamicsShader className={shaderClass} {...props} />;
-    case 'fractalmandala':
-      return <FractalMandalaShader className={shaderClass} {...props} />;
-    case 'galaxy':
-      return <GalaxyShader className={shaderClass} {...props} />;
-    case 'juliaset':
-      return <JuliaSetShader className={shaderClass} {...props} />;
-    case 'kaleidoscope':
-      return <KaleidoscopeShader className={shaderClass} {...props} />;
-    case 'plasma':
-      return <PlasmaShader className={shaderClass} {...props} />;
-    case 'quantumfield':
-      return <QuantumFieldShader className={shaderClass} {...props} />;
-    case 'sdfmorph':
-      return <SDFMorphShader className={shaderClass} {...props} />;
-    case 'spiralwhirlpool':
-      return <SpiralWhirlpoolShader className={shaderClass} {...props} />;
-    case 'stringtheory':
-      return <StringTheoryShader className={shaderClass} {...props} />;
-    case 'tunnelvision':
-      return <TunnelVisionShader className={shaderClass} {...props} />;
-    case 'turbulence':
-      return <TurbulenceShader className={shaderClass} {...props} />;
-    case 'voronoi':
-      return <VoronoiShader className={shaderClass} {...props} />;
-    case 'waveform':
-      return <WaveformShader className={shaderClass} {...props} />;
-    case 'zippyzaps':
-      return <ZippyZapsShader className={shaderClass} {...props} />;
 
     // CSS Gradients (Fallbacks)
     case 'blue':
-      return <div className={`shader-gradient-blue ${shaderClass}`} />;
+      return (
+        <div className={containerClass}>
+          <div className={`shader-gradient-blue ${shaderClass}`} />
+          {children}
+        </div>
+      );
     case 'animated':
-      return <div className={`shader-gradient-animated ${shaderClass}`} />;
+      return (
+        <div className={containerClass}>
+          <div className={`shader-gradient-animated ${shaderClass}`} />
+          {children}
+        </div>
+      );
     case 'radial':
-      return <div className={`shader-gradient-radial ${shaderClass}`} />;
+      return (
+        <div className={containerClass}>
+          <div className={`shader-gradient-radial ${shaderClass}`} />
+          {children}
+        </div>
+      );
     case 'orange':
-      return <div className={`vibrant-orange ${shaderClass}`} />;
+      return (
+        <div className={containerClass}>
+          <div className={`vibrant-orange ${shaderClass}`} />
+          {children}
+        </div>
+      );
 
     default:
       // Fallback to a default shader if the variant is unknown
-      return <StringTheoryShader className={shaderClass} {...props} />;
+      return (
+        <div className={containerClass}>
+          <StringTheoryShader className={shaderClass} {...props} />
+          {children}
+        </div>
+      );
   }
 }

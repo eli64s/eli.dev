@@ -1,10 +1,10 @@
-import type { Express } from "express";
+import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Get portfolio data (profile, social links, and navigation sections)
-  app.get("/api/portfolio", async (req, res) => {
+  app.get("/api/portfolio", async (req: Request, res: Response) => {
     try {
       const profile = await storage.getActiveProfile();
       

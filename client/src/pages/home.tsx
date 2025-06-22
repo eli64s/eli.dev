@@ -16,7 +16,7 @@ import PlasmaShader from "@/components/PlasmaShader";
 import CyberGridShader from "@/components/CyberGridShader";
 import VoronoiShader from "@/components/VoronoiShader";
 import KaleidoscopeShader from "@/components/KaleidoscopeShader";
-// import FractalMandalaShader from "@/components/FractalMandalaShader";
+import FractalMandalaShader from "@/components/FractalMandalaShader";
 import SDFMorphShader from "@/components/SDFMorphShader";
 import FluidDynamicsShader from "@/components/FluidDynamicsShader";
 import QuantumFieldShader from "@/components/QuantumFieldShader";
@@ -27,7 +27,6 @@ import TurbulenceShader from "@/components/TurbulenceShader";
 import CrossGalacticOceanShader from "@/components/CrossGalacticOceanShader";
 import GalaxyShader from "@/components/GalaxyShader";
 import TunnelVisionShader from "@/components/TunnelVisionShader";
-
 import ShaderControls from "@/components/ShaderControls";
 import ProjectShowcase from "@/components/ProjectShowcase";
 
@@ -171,11 +170,6 @@ export default function Home() {
         return <GalaxyShader {...shaderProps} />;
       case 'tunnelvision':
         return <TunnelVisionShader {...shaderProps} />;
-      // Disabled shaders - cases for when they might be enabled
-      case 'spiralwhirlpool':
-        // These shaders are disabled but cases exist for future use
-        console.warn(`Shader ${currentVariant} is disabled in SHADER_CONFIG`);
-        return null;
       default:
         return null;
     }
@@ -183,11 +177,10 @@ export default function Home() {
 
   const webglShaders: ShaderVariant[] = ['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'sdfmorph', 'fluiddynamics',
     'quantumfield', 'burningship', 'turbulence', 'crossgalacticocean', 'galaxy', 'tunnelvision', 'spiralwhirlpool', 'orange'];
-  const showShaderControls = webglShaders.includes(currentVariant);
-
+  const isWebGLShader = webglShaders.includes(currentVariant);
   const content = (
     <>
-      {webglShaders.includes(currentVariant) && (
+      {['stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds'].includes(currentVariant) && (
         <div className="absolute inset-0 z-0">
           {renderShaderBackground()}
         </div>
@@ -201,7 +194,11 @@ export default function Home() {
         />
       )}
       */}
-      <div className="relative z-10 min-h-screen flex flex-col">
+      <div className="relative z-10">
+        <ColorPalette 
+          currentVariant={currentVariant} 
+          onColorChange={setCurrentVariant} 
+        />
         {/* Main Content */}
         <div className="flex-1 flex items-center justify-center px-4 py-8">
           <div className="text-center animate-fade-in">
@@ -215,13 +212,14 @@ export default function Home() {
             </div>
 
             {/* Name */}
-            <h1 className={`text-4xl md:text-5xl font-bold mb-8 tracking-tight ${currentVariant === 'orange' ? '' : 'text-gradient-blue'
-              } glow-effect`}>
+            <h1 className={`text-4xl md:text-5xl font-bold mb-8 tracking-tight ${
+              currentVariant === 'orange' ? '' : 'text-gradient-blue'
+            } glow-effect`}>
               {data.profile.name}
             </h1>
 
             {/* Social Media Links */}
-            <div className="flex justify-center items-center space-x-6 mb-12 flex-wrap">
+            <div className="flex justify-center items-center space-x-6 mb-16 flex-wrap">
               {data.socialLinks
                 .sort((a, b) => a.order - b.order)
                 .map((link) => {
@@ -230,21 +228,17 @@ export default function Home() {
                     <button
                       key={link.id}
                       onClick={() => handleSocialClick(link.url)}
-                      className={`text-white transition-all duration-300 transform hover:scale-110 p-3 rounded-full glow-effect hover:shadow-lg ${currentVariant === 'orange'
-                        ? 'hover:text-orange-hover hover:shadow-orange-500/20'
-                        : 'hover:text-cyan-300 glass-effect hover:shadow-cyan-500/20'
-                        }`}
+                      className={`text-white transition-all duration-300 transform hover:scale-110 p-3 rounded-full glow-effect hover:shadow-lg ${
+                        currentVariant === 'orange' 
+                          ? 'hover:text-orange-hover hover:shadow-orange-500/20' 
+                          : 'hover:text-cyan-300 glass-effect hover:shadow-cyan-500/20'
+                      }`}
                       aria-label={`${link.platform} Profile`}
                     >
                       <IconComponent className="text-2xl md:text-3xl" />
                     </button>
                   );
                 })}
-            </div>
-
-            {/* Project Showcase */}
-            <div className="mb-16">
-              <ProjectShowcase />
             </div>
           </div>
         </div>
@@ -259,8 +253,9 @@ export default function Home() {
                   <div key={section.id} className="flex items-center">
                     <button
                       onClick={() => handleNavigationClick(section.url)}
-                      className={`text-white/90 text-sm md:text-base font-medium transition-all duration-200 hover:underline underline-offset-4 px-2 py-1 rounded hover:bg-white/10 ${currentVariant === 'orange' ? 'hover:text-white' : 'hover:text-cyan-300'
-                        }`}
+                      className={`text-white/90 text-sm md:text-base font-medium transition-all duration-200 hover:underline underline-offset-4 px-2 py-1 rounded hover:bg-white/10 ${
+                        currentVariant === 'orange' ? 'hover:text-white' : 'hover:text-cyan-300'
+                      }`}
                     >
                       {section.name}
                     </button>
@@ -272,38 +267,17 @@ export default function Home() {
             </nav>
           </div>
         </footer>
-
-        {/* Color Palette - Fixed Position */}
-        <ColorPalette
-          currentVariant={currentVariant}
-          onColorChange={setCurrentVariant}
-        />
       </div>
     </>
   );
 
-  if ([
-    'stringtheory', 
-    'waveform', 
-    'plasma', 
-    'cybergrid', 
-    'voronoi', 
-    'kaleidoscope',
-    'sdfmorph',
-    'fluiddynamics',
-    'quantumfield', 'burningship',
-    'turbulence',
-    'crossgalacticocean', 
-    'galaxy',
-    'tunnelvision', 
-    'spiralwhirlpool'
-  ].includes(currentVariant)) {
+  if (['orange', 'stringtheory', 'waveform', 'plasma', 'cybergrid', 'voronoi', 'kaleidoscope', 'mandala', 'sdfmorph', 'fractalnoise', 'fluiddynamics', 'quantumfield', 'zippyzaps', 'mandelbrot', 'juliaset', 'burningship', 'turbulence', 'clouds'].includes(currentVariant)) {
     return <div className={getContainerClass()}>{content}</div>;
   }
 
   return (
-    <ShaderBackground
-      variant={getBackgroundVariant() as 'blue' | 'animated' | 'radial'}
+    <ShaderBackground 
+      variant={getBackgroundVariant() as 'blue' | 'animated' | 'radial'} 
       className={getContainerClass()}
     >
       {content}

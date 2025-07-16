@@ -4,7 +4,7 @@ import {
   Github, Linkedin, Mail, ArrowDown, Layers,
   Brain, Rocket, Terminal, Database, Cloud,
   GitBranch, Box, Command, Briefcase, GraduationCap, Award,
-  Triangle, Circle, Square, Hexagon, ArrowRight, MapPin, Calendar, Send
+  Triangle, Circle, Square, Hexagon, ArrowRight, MapPin, Calendar, Send, ArrowUp, PenTool
 } from "lucide-react";
 
 // Type definitions
@@ -164,8 +164,8 @@ const LanyardSection: React.FC = () => {
                   <h4>Senior Software Engineer, <em>AI-Powered Developer Experience</em></h4>
                   <p className="lanyard-meta">Capital One • August 2022 - Present</p>
                   <span className="lanyard-desc">
-                    I lead the development of internal AI/ML systems, including a RAG backend API serving 15,000+ users
-                    and a Python SDK for 500+ developers, significantly improving developer experience and boosting LLM recall by 23.5%.
+                    Led the development of internal AI/ML systems, including a RAG backend API serving 15,000+ users and a Python SDK for 500+ developers.
+                    Designed an adaptive document chunking framework that improved LLM recall by 23.5%.
                     Additionally, specialized in automating data workflows, delivering an NLP voice analytics model that saved 320+ hours monthly for QA agents.
                   </span>
                 </div>
@@ -175,16 +175,17 @@ const LanyardSection: React.FC = () => {
                   <span className="lanyard-desc">
                     Led the development of 24 low-code applications generating $330K annual savings,
                     streamlining workflows for 25+ business teams. Co-led global an up-skilling
-                    initiative training 150+ non-technical employees in low-code development.
+                    initiative that trained over 200 non-technical employees in low-code development.
                   </span>
                 </div>
                 <div className="lanyard-item">
                   <h4>Senior Data Analyst, <em>Revenue Strategy</em></h4>
                   <p className="lanyard-meta">United Airlines • January 2018 - April 2020</p>
                   <span className="lanyard-desc">
-                    Discovered a $2M+ revenue opportunity by detecting a demand anomaly
-                    (the 30K-attendee <a href="https://en.wikipedia.org/wiki/ELCA_Youth_Gathering" target="_blank" rel="noopener noreferrer">2018 ELCA Youth Gathering</a>)
-                    missed by United's seasonality engine, driving 50% fare increases across 200+ flights through Houston.
+                    Discovered a $2M+ revenue opportunity by detecting a demand anomaly in Houston
+                    (<a href="https://en.wikipedia.org/wiki/ELCA_Youth_Gathering" target="_blank" rel="noopener noreferrer">the 2018 ELCA Youth Conference</a>),
+                    including 30,000+ attendees traveling to Houston that was not captured by United's seasonality engine.
+                    This led to over 50% fare increases across 200+ flights through Houston.
                   </span>
                 </div>
               </div>
@@ -1013,6 +1014,84 @@ const ByrnePortfolio: React.FC = () => {
           overflow: hidden;
         }
 
+        /* Blog Section */
+        .blog-section {
+          width: 100%;
+          min-height: 500px;
+        }
+
+        .blog-coming-soon {
+          text-align: center;
+          padding: 4rem 2rem;
+          max-width: 600px;
+          margin: 0 auto;
+        }
+
+        .blog-icon {
+          color: var(--accent-blue);
+          margin-bottom: 1.5rem;
+        }
+
+        .blog-coming-title {
+          font-size: 2rem;
+          font-weight: 600;
+          margin-bottom: 1rem;
+          color: var(--text-dark);
+        }
+
+        .blog-coming-description {
+          font-size: 1.125rem;
+          color: var(--text-muted);
+          line-height: 1.6;
+          margin-bottom: 2rem;
+        }
+
+        .blog-coming-subtitle {
+          font-size: 0.875rem;
+          color: var(--text-secondary);
+          margin-bottom: 1.5rem;
+        }
+
+        .blog-subscribe-form {
+          display: flex;
+          gap: 0.75rem;
+          max-width: 400px;
+          margin: 0 auto;
+        }
+
+        .blog-email-input {
+          flex: 1;
+          padding: 0.75rem 1rem;
+          border: 1px solid var(--border-light);
+          border-radius: 8px;
+          font-size: 0.875rem;
+          transition: all 0.2s ease;
+          background: var(--bg-gray-50);
+          color: var(--text-muted);
+        }
+
+        .blog-email-input:disabled {
+          cursor: not-allowed;
+          opacity: 0.6;
+        }
+
+        .blog-subscribe-button {
+          padding: 0.75rem 1.5rem;
+          background: var(--accent-blue);
+          color: white;
+          border: none;
+          border-radius: 8px;
+          font-size: 0.875rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          opacity: 0.6;
+        }
+
+        .blog-subscribe-button:disabled {
+          cursor: not-allowed;
+        }
+
         .projects-container {
           width: 100%;
           max-width: 1400px;
@@ -1345,6 +1424,105 @@ const ByrnePortfolio: React.FC = () => {
             padding: 0 1rem;
           }
         }
+
+        /* Return to Top Button */
+        .return-button {
+          position: fixed;
+          bottom: 2rem;
+          right: 2rem;
+          width: 48px;
+          height: 48px;
+          background: var(--accent-blue); /* This sets the background color */
+          color: var(--text-color-light); /* This sets the color for text/icons *inside* the button */
+          /* If you want white, you can directly use #fff or var(--white) if you have a variable for it */
+          /* Example: color: #fff; */
+
+          border: none;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); /* This shadow uses a specific blue, likely related to --accent-blue */
+          z-index: 1000;
+        }
+
+        .return-button.visible {
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .return-button:hover {
+          transform: translateY(-2px);
+          /* The shadow on hover also uses the accent blue */
+          box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .return-button:active {
+          transform: translateY(0);
+        }
+
+        /* Section Return Buttons */
+        .section-return-container {
+          display: flex;
+          justify-content: center;
+          margin-top: 3rem;
+          width: 100%;
+        }
+
+        .section-return {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.75rem 1.5rem;
+          background: var(--bg-white);
+          border: 1px solid var(--border-light);
+          border-radius: 12px;
+          color: var(--text-secondary);
+          font-size: 0.875rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .section-return:hover {
+          border-color: var(--accent-blue);
+          color: var(--accent-blue);
+          transform: translateY(-1px);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+          .return-button {
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+          }
+
+          .blog-coming-soon {
+            padding: 3rem 1rem;
+          }
+
+          .blog-coming-title {
+            font-size: 1.5rem;
+          }
+
+          .blog-coming-description {
+            font-size: 1rem;
+          }
+
+          .blog-subscribe-form {
+            flex-direction: column;
+          }
+
+          .blog-email-input,
+          .blog-subscribe-button {
+            width: 100%;
+          }
+        }
       `}</style>
 
       <div className="portfolio-bg"></div>
@@ -1362,6 +1540,8 @@ const ByrnePortfolio: React.FC = () => {
               onClick={() => scrollToSection('about')}>About</li>
             <li className={`nav-link ${activeSection === 'projects' ? 'active' : ''}`}
               onClick={() => scrollToSection('projects')}>Projects</li>
+            <li className={`nav-link ${activeSection === 'blog' ? 'active' : ''}`}
+              onClick={() => scrollToSection('blog')}>Blog</li>
           </ul>
         </div>
       </nav>
@@ -1435,6 +1615,25 @@ const ByrnePortfolio: React.FC = () => {
           ))}
         </div>
       </section>
+
+      <section id="blog" className="section blog-section">
+        <div className="section-header">
+          <div className="section-badge">Blog</div>
+          <h2 className="section-title">Thoughts & Insights</h2>
+          <p className="section-subtitle">
+            Coming soon! Stay tuned for articles on AI engineering, creative technology, and more.
+          </p>
+        </div>
+      </section>
+
+      {/* Floating Return to Top Button */}
+      <button 
+        className={`return-button ${scrollY > 300 ? 'visible' : ''}`}
+        onClick={() => scrollToSection('hero')}
+        aria-label="Return to top"
+      >
+        <ArrowUp size={24} />
+      </button>
     </div>
   );
 };

@@ -27,3 +27,7 @@ dist-ssr
 .claude/
 CLAUDE.md
 Claude.local.md
+
+# Lock files (using pnpm)
+package-lock.json
+yarn.lock

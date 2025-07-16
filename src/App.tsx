@@ -1370,11 +1370,10 @@ const ByrnePortfolio: React.FC = () => {
         <div className="hero-content">
           <div className="hero-intro">
             <h1 className="hero-title">
-              Building AI systems to enhance human creativity
+              Eli Salamie
             </h1>
             <p className="hero-subtitle">
-              Exploring the intersection of technology, art, and human cognition.
-              Creating AI that serves as a genuine creative partner — systems that are reflective, resonant, and responsible.
+              AI Engineer exploring the intersection of technology, art, and human cognition.
             </p>
             <div className="hero-cta-group">
               <button className="hero-cta" onClick={() => scrollToSection('projects')}>
@@ -1388,7 +1387,7 @@ const ByrnePortfolio: React.FC = () => {
           </div>
           <div className="hero-profile-card">
             <ProfileCard
-              avatarUrl="/images/banff.jpg"
+              avatarUrl="/imgs/banff.jpg"
               name="Eli Salamie"
               title="AI Engineer & Researcher"
               handle="eli64s"
@@ -1412,9 +1411,8 @@ const ByrnePortfolio: React.FC = () => {
         <div className="about-content">
           <div className="about-intro">
             <p className="about-description">
-              AI engineer and open-source builder who moved from industrial engineering at Purdue to computer science at UPenn,
-              fascinated by where technology, art, and human cognition intersect. I'm working on AI systems that collaborate rather
-              than just process—building tools that amplify human creativity and serve as thoughtful partners in creative and intellectual work.
+              As an AI engineer and open-source builder with an academic journey from Industrial Engineering (Purdue) to Computer Science (UPenn), I'm exploring the intersection of technology, art, and cognition.
+              My current focus is on creating AI systems that act as responsible creative partners, enhancing human abilities and adapting to individual workflows.
             </p>
           </div>
           <LanyardSection />

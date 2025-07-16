@@ -77,7 +77,6 @@ pnpm lint
 eli.dev/
 ├── src/
 │   ├── App.tsx          # Main application component
-│   ├── App.css          # Component styles
 │   ├── index.css        # Global styles
 │   └── main.tsx         # Application entry point
 ├── public/
@@ -90,12 +89,4 @@ eli.dev/
 
 This is a personal portfolio site, but suggestions and feedback are welcome! Feel free to open an issue or submit a pull request.
 
-## License
-
-All Rights Reserved
-
-## Contact
-
-- Email: egsalamie@gmail.com
-- GitHub: [@egsalamie](https://github.com/egsalamie)
-- LinkedIn: [Eli Salamie](https://linkedin.com/in/eli-salamie)
+---

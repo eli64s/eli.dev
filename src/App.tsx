@@ -64,6 +64,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
+      <div className="profile-glow"></div>
       <div className="profile-header">
         <div className="profile-avatar-container">
           <img
@@ -73,15 +74,16 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           />
           <div className="profile-status-indicator"></div>
         </div>
-        <div className="profile-location">
-          <MapPin size={14} />
-          <span>Based in Dallas, TX, USA</span>
-        </div>
       </div>
 
       <div className="profile-info">
-        <h3 className="profile-name">{name}</h3>
+        <h1 className="profile-name">{name}</h1>
         <p className="profile-title">{title}</p>
+        
+        <div className="profile-location">
+          <MapPin size={14} />
+          <span>Dallas, TX</span>
+        </div>
         
         {socialLinks && socialLinks.length > 0 && (
           <div className="profile-social-links">
@@ -99,16 +101,6 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
             ))}
           </div>
         )}
-        
-        <button
-          className="profile-contact-btn"
-          onClick={onContactClick}
-          type="button"
-          aria-label={`Contact ${name}`}
-        >
-          <Send size={16} />
-          {contactText}
-        </button>
       </div>
     </div>
   );
@@ -182,10 +174,9 @@ const LanyardSection: React.FC = () => {
                   <h4>Senior Data Analyst, <em>Revenue Strategy</em></h4>
                   <p className="lanyard-meta">United Airlines • January 2018 - April 2020</p>
                   <span className="lanyard-desc">
-                    Discovered a $2M+ revenue opportunity by detecting a demand anomaly in Houston
-                    (<a href="https://en.wikipedia.org/wiki/ELCA_Youth_Gathering" target="_blank" rel="noopener noreferrer">the 2018 ELCA Youth Conference</a>),
-                    including 30,000+ attendees traveling to Houston that was not captured by United's seasonality engine.
-                    This led to over 50% fare increases across 200+ flights through Houston.
+                    Discovered a $2.3M+ revenue opportunity by detecting a demand anomaly
+                    (<a href="https://en.wikipedia.org/wiki/ELCA_Youth_Gathering" target="_blank" rel="noopener noreferrer">the 2018 ELCA Youth Conference</a>)
+                    that included 30,000+ attendees traveling to Houston that United's seasonality engine missed. This led to fare increases over 50% for 200+ flights.
                   </span>
                 </div>
               </div>
@@ -345,6 +336,7 @@ const ByrnePortfolio: React.FC = () => {
   const [expandedProject, setExpandedProject] = useState(0);
   const [activeSection, setActiveSection] = useState('hero');
   const [isMobile, setIsMobile] = useState(false);
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const handleScroll = () => {
@@ -373,9 +365,31 @@ const ByrnePortfolio: React.FC = () => {
     window.addEventListener('resize', handleResize);
     handleResize();
 
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setVisibleSections(prev => new Set(prev).add(entry.target.id));
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    
+    // Observe all sections
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => observer.observe(section));
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
+      observer.disconnect();
     };
   }, []);
 
@@ -443,32 +457,39 @@ const ByrnePortfolio: React.FC = () => {
     <div className="portfolio-container">
       <style>{`
         /* Import fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
 
         :root {
           /* Modern Color Palette */
-          --bg-cream: #FAF8F3;
+          --bg-cream: #FAFAF8;
           --bg-white: #FFFFFF;
+          --bg-off-white: #FCFCFA;
           --bg-gray-50: #F8F9FA;
           --bg-gray-100: #F1F3F4;
-          --text-dark: #2C3E50;
-          --text-muted: #5D6D7E;
-          --text-light: #8B9DC3;
-          --red-primary: #E74C3C;
-          --blue-primary: #3498DB;
+          --text-dark: #1A1A1A;
+          --text-muted: #6B7280;
+          --text-light: #9CA3AF;
+          --accent-red: #DC2626;
+          --accent-blue: #2563EB;
+          --accent-purple: #7C3AED;
           --blue-light: #EBF3FD;
-          --yellow-primary: #F1C40F;
-          --green-primary: #27AE60;
-          --black-accent: #2C3E50;
-          --border-light: #E8E4DC;
-          --border-gray: #E1E5E9;
-          --shadow-soft: rgba(44, 62, 80, 0.08);
-          --shadow-medium: rgba(44, 62, 80, 0.12);
-          --shadow-strong: rgba(44, 62, 80, 0.16);
+          --yellow-primary: #F59E0B;
+          --green-primary: #10B981;
+          --black-accent: #111827;
+          --border-light: #E5E7EB;
+          --border-gray: #D1D5DB;
+          --shadow-soft: rgba(0, 0, 0, 0.05);
+          --shadow-medium: rgba(0, 0, 0, 0.08);
+          --shadow-strong: rgba(0, 0, 0, 0.12);
+          --shadow-glow: rgba(37, 99, 235, 0.1);
           
           /* Typography */
           --font-serif: 'Crimson Text', serif;
-          --font-sans: 'Inter', sans-serif;
+          --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+          
+          /* Transitions */
+          --transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          --transition-slow: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -483,11 +504,15 @@ const ByrnePortfolio: React.FC = () => {
         }
 
         body {
-          font-family: var(--font-serif);
+          font-family: var(--font-sans);
           background-color: var(--bg-cream);
           color: var(--text-dark);
-          line-height: 1.6;
-          font-size: 18px;
+          line-height: 1.7;
+          font-size: 16px;
+          font-weight: 400;
+          letter-spacing: -0.011em;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
         }
 
         .portfolio-container {
@@ -533,16 +558,16 @@ const ByrnePortfolio: React.FC = () => {
           z-index: 1000;
           width: 100%;
           padding: 1.5rem 2rem;
-          background: var(--bg-white);
-          border-bottom: 1px solid var(--border-light);
-          box-shadow: 0 2px 4px var(--shadow-soft);
-          transition: all 0.3s ease;
+          background: rgba(255, 255, 255, 0.8);
+          backdrop-filter: blur(10px);
+          border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+          transition: var(--transition-base);
         }
 
         .nav-scrolled {
           padding: 1rem 2rem;
-          backdrop-filter: blur(10px);
           background: rgba(255, 255, 255, 0.95);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .nav-content {
@@ -580,28 +605,39 @@ const ByrnePortfolio: React.FC = () => {
           cursor: pointer;
           font-size: 0.875rem;
           font-weight: 500;
-          transition: color 0.3s ease;
+          transition: var(--transition-base);
           position: relative;
           text-transform: uppercase;
           letter-spacing: 0.05em;
         }
 
-        .nav-link:hover {
-          color: var(--text-dark);
-        }
-
-        .nav-link.active {
-          color: var(--red-primary);
-        }
-
-        .nav-link.active::after {
+        .nav-link::after {
           content: '';
           position: absolute;
           bottom: -8px;
           left: 0;
           right: 0;
           height: 2px;
-          background: var(--red-primary);
+          background: var(--accent-red);
+          transform: scaleX(0);
+          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transform-origin: center;
+        }
+
+        .nav-link:hover {
+          color: var(--text-dark);
+        }
+
+        .nav-link:hover::after {
+          transform: scaleX(0.8);
+        }
+
+        .nav-link.active {
+          color: var(--accent-red);
+        }
+
+        .nav-link.active::after {
+          transform: scaleX(1);
         }
         
         /* Hero Section */
@@ -612,22 +648,124 @@ const ByrnePortfolio: React.FC = () => {
           align-items: center;
           justify-content: center;
           position: relative;
-          padding: 8rem 2rem 4rem;
-          background: var(--bg-white);
+          padding: 2rem;
+          background: 
+            radial-gradient(ellipse at top left, rgba(37, 99, 235, 0.03) 0%, transparent 50%),
+            radial-gradient(ellipse at bottom right, rgba(124, 58, 237, 0.03) 0%, transparent 50%),
+            linear-gradient(135deg, var(--bg-off-white) 0%, var(--bg-white) 100%);
+          overflow: hidden;
+        }
+
+        /* Particle Animation */
+        .hero-particles {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+
+        .particle {
+          position: absolute;
+          width: 3px;
+          height: 3px;
+          background: var(--accent-blue);
+          border-radius: 50%;
+          opacity: 0.2;
+          animation: float linear infinite;
+          filter: blur(0.5px);
+        }
+
+        @keyframes float {
+          from {
+            transform: translateY(100vh) rotate(0deg);
+            opacity: 0;
+          }
+          10% {
+            opacity: 0.3;
+          }
+          90% {
+            opacity: 0.3;
+          }
+          to {
+            transform: translateY(-100vh) rotate(360deg);
+            opacity: 0;
+          }
         }
 
         .hero-content {
           width: 100%;
-          max-width: 1200px;
+          max-width: 450px;
           margin: 0 auto;
-          display: grid;
-          grid-template-columns: 1fr 400px;
-          gap: 4rem;
+          display: flex;
           align-items: center;
+          justify-content: center;
+          z-index: 10;
+          position: relative;
         }
 
-        .hero-intro {
-          padding-right: 2rem;
+        .hero-profile-wrapper {
+          animation: fadeInScale 1s ease-out;
+        }
+
+        @keyframes fadeInScale {
+          from {
+            opacity: 0;
+            transform: scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        /* Navigation Hint */
+        .hero-nav-hint {
+          position: absolute;
+          bottom: 3rem;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 10;
+        }
+
+        .nav-hint-btn {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.5rem;
+          background: none;
+          border: none;
+          color: var(--text-muted);
+          cursor: pointer;
+          padding: 0.5rem 1rem;
+          transition: all 0.3s ease;
+          font-family: var(--font-sans);
+        }
+
+        .nav-hint-text {
+          font-size: 0.875rem;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          opacity: 0.6;
+          transition: opacity 0.3s ease;
+        }
+
+        .nav-hint-arrow {
+          animation: bounce 2s infinite;
+          opacity: 0.4;
+          transition: opacity 0.3s ease;
+        }
+
+        .nav-hint-btn:hover .nav-hint-text,
+        .nav-hint-btn:hover .nav-hint-arrow {
+          opacity: 1;
+        }
+
+        .nav-hint-btn:hover .nav-hint-arrow {
+          transform: translateY(3px);
+        }
+
+        @keyframes bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(5px); }
         }
 
         .hero-badge {
@@ -646,20 +784,30 @@ const ByrnePortfolio: React.FC = () => {
           border: 1px solid var(--border-gray);
         }
 
-        .hero-title {
-          font-family: var(--font-serif);
-          font-size: clamp(2.5rem, 4vw, 3.5rem);
-          font-weight: 700;
-          line-height: 1.1;
-          color: var(--text-dark);
-          margin-bottom: 1.5rem;
+        /* Enhanced Profile Card Styling */
+        .hero-profile-wrapper .modern-profile-card {
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(20px);
+          box-shadow: 
+            0 10px 40px rgba(0, 0, 0, 0.08),
+            0 0 0 1px rgba(255, 255, 255, 0.7) inset;
+          transform: translateY(0);
+          transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        .hero-subtitle {
-          font-size: 1.25rem;
-          color: var(--text-muted);
-          margin-bottom: 2.5rem;
-          line-height: 1.7;
+        .hero-profile-wrapper .modern-profile-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 
+            0 20px 60px rgba(0, 0, 0, 0.12),
+            0 0 0 1px rgba(255, 255, 255, 0.7) inset;
+        }
+
+        .hero-profile-wrapper .profile-avatar {
+          transition: transform 0.4s ease;
+        }
+
+        .hero-profile-wrapper .modern-profile-card:hover .profile-avatar {
+          transform: scale(1.05);
         }
 
         .hero-cta-group {
@@ -703,38 +851,67 @@ const ByrnePortfolio: React.FC = () => {
           color: white;
         }
 
-        /* Modern Profile Card */
-        .modern-profile-card {
-          background: var(--bg-white);
-          border-radius: 1.5rem;
-          padding: 2rem;
-          box-shadow: 0 10px 40px var(--shadow-soft);
-          border: 1px solid var(--border-gray);
-          transition: all 0.3s ease;
-          position: relative;
-          overflow: hidden;
+        /* Remove old hero styles */
+        .hero-badge,
+        .hero-cta-group,
+        .hero-cta,
+        .hero-cta-secondary {
+          display: none;
         }
 
-        .modern-profile-card::before {
-          content: '';
+        /* Modern Profile Card */
+        .modern-profile-card {
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(20px);
+          border-radius: 1.5rem;
+          padding: 3rem;
+          box-shadow: 
+            0 4px 6px -1px rgba(0, 0, 0, 0.1),
+            0 2px 4px -1px rgba(0, 0, 0, 0.06),
+            0 20px 25px -5px rgba(0, 0, 0, 0.1),
+            0 10px 10px -5px rgba(0, 0, 0, 0.04),
+            0 0 0 1px rgba(0, 0, 0, 0.02);
+          transition: var(--transition-slow);
+          position: relative;
+          overflow: hidden;
+          transform: translateY(0);
+        }
+
+        .profile-glow {
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 4px;
-          background: linear-gradient(90deg, var(--red-primary), var(--blue-primary), var(--yellow-primary));
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(
+            circle at center,
+            rgba(59, 130, 246, 0.1) 0%,
+            transparent 70%
+          );
+          opacity: 0;
+          transition: opacity 0.4s ease;
+          pointer-events: none;
+        }
+
+        .modern-profile-card:hover .profile-glow {
+          opacity: 1;
         }
 
         .modern-profile-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 20px 60px var(--shadow-medium);
+          transform: translateY(-8px) scale(1.02);
+          box-shadow: 
+            0 10px 15px -3px rgba(0, 0, 0, 0.1),
+            0 4px 6px -2px rgba(0, 0, 0, 0.05),
+            0 30px 40px -10px rgba(0, 0, 0, 0.15),
+            0 0 0 1px rgba(0, 0, 0, 0.02),
+            0 0 40px rgba(37, 99, 235, 0.08);
         }
 
         .profile-header {
           display: flex;
           flex-direction: column;
           align-items: center;
-          margin-bottom: 2rem;
+          margin-bottom: 2.5rem;
         }
 
         .profile-avatar-container {
@@ -743,12 +920,22 @@ const ByrnePortfolio: React.FC = () => {
         }
 
         .profile-avatar {
-          width: 120px;
-          height: 120px;
+          width: 140px;
+          height: 140px;
           border-radius: 50%;
           object-fit: cover;
-          border: 4px solid var(--bg-white);
-          box-shadow: 0 8px 24px var(--shadow-soft);
+          border: 5px solid rgba(255, 255, 255, 0.9);
+          box-shadow: 
+            0 10px 30px rgba(0, 0, 0, 0.15),
+            0 0 0 1px rgba(0, 0, 0, 0.05);
+          transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @media (max-width: 768px) {
+          .profile-avatar {
+            width: 120px;
+            height: 120px;
+          }
         }
 
         .profile-status-indicator {
@@ -766,10 +953,13 @@ const ByrnePortfolio: React.FC = () => {
         .profile-location {
           display: flex;
           align-items: center;
+          justify-content: center;
           gap: 0.5rem;
           font-family: var(--font-sans);
           font-size: 0.875rem;
           color: var(--text-light);
+          margin-top: 1rem;
+          margin-bottom: 1.5rem;
         }
 
         .profile-info {
@@ -778,18 +968,22 @@ const ByrnePortfolio: React.FC = () => {
 
         .profile-name {
           font-family: var(--font-serif);
-          font-size: 1.5rem;
-          font-weight: 700;
+          font-size: 2.25rem;
+          font-weight: 800;
           color: var(--text-dark);
           margin-bottom: 0.5rem;
+          letter-spacing: -0.03em;
+          line-height: 1.1;
         }
 
         .profile-title {
           font-family: var(--font-sans);
-          font-size: 1rem;
+          font-size: 1.125rem;
+          font-weight: 400;
           color: var(--text-muted);
           margin-bottom: 1.5rem;
-          line-height: 1.4;
+          line-height: 1.5;
+          letter-spacing: -0.01em;
         }
 
         .profile-social-links {
@@ -800,49 +994,48 @@ const ByrnePortfolio: React.FC = () => {
         }
 
         .profile-social-link {
-          width: 40px;
-          height: 40px;
+          width: 42px;
+          height: 42px;
           display: flex;
           align-items: center;
           justify-content: center;
-          background: var(--bg-gray-50);
-          border: 1px solid var(--border-gray);
+          background: var(--bg-off-white);
+          border: 1px solid var(--border-light);
           color: var(--text-muted);
-          transition: all 0.3s ease;
+          transition: var(--transition-base);
           border-radius: 0.75rem;
           text-decoration: none;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .profile-social-link::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: var(--text-dark);
+          transform: scale(0);
+          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          border-radius: 0.75rem;
         }
 
         .profile-social-link:hover {
-          background: var(--blue-primary);
-          color: white;
-          border-color: var(--blue-primary);
-          transform: translateY(-2px);
+          transform: translateY(-3px);
+          border-color: var(--text-dark);
+          box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15);
         }
 
-        .profile-contact-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.875rem 1.5rem;
-          font-family: var(--font-sans);
-          font-size: 0.875rem;
-          font-weight: 500;
-          background: var(--blue-primary);
-          border: 2px solid var(--blue-primary);
-          color: white;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          border-radius: 0.75rem;
-          width: 100%;
-          justify-content: center;
+        .profile-social-link:hover::before {
+          transform: scale(1);
         }
 
-        .profile-contact-btn:hover {
-          background: transparent;
-          color: var(--blue-primary);
-          transform: translateY(-2px);
+        .profile-social-link:hover svg {
+          color: white;
+          z-index: 1;
+          position: relative;
         }
+
+        /* Remove contact button styles as we're not using it */
 
         /* Sections */
         .section {
@@ -850,11 +1043,19 @@ const ByrnePortfolio: React.FC = () => {
           padding: 5rem 2rem;
           position: relative;
           background: var(--bg-white);
-          border-top: 1px solid var(--border-light);
+          border-top: 1px solid rgba(0, 0, 0, 0.05);
+          opacity: 0;
+          transform: translateY(30px);
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section.visible {
+          opacity: 1;
+          transform: translateY(0);
         }
 
         .section:nth-child(even) {
-          background: var(--bg-cream);
+          background: var(--bg-off-white);
         }
 
         .section-header {
@@ -879,9 +1080,11 @@ const ByrnePortfolio: React.FC = () => {
 
         .section-title {
           font-family: var(--font-serif);
-          font-size: 2.5rem;
-          font-weight: 700;
+          font-size: 2.75rem;
+          font-weight: 800;
           color: var(--text-dark);
+          letter-spacing: -0.03em;
+          line-height: 1.1;
         }
 
         /* About Section */
@@ -899,9 +1102,11 @@ const ByrnePortfolio: React.FC = () => {
         }
 
         .about-description {
-          font-size: 1.25rem;
-          line-height: 1.8;
+          font-size: 1.125rem;
+          line-height: 1.9;
           color: var(--text-muted);
+          font-weight: 400;
+          letter-spacing: -0.01em;
         }
 
         /* Lanyard Section */
@@ -1122,14 +1327,17 @@ const ByrnePortfolio: React.FC = () => {
         .project-panel {
           position: relative;
           background: var(--bg-white);
-          border: 2px solid var(--border-light);
+          border: 1px solid var(--border-light);
           border-radius: 1rem;
           overflow: hidden;
           cursor: pointer;
-          transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+          transition: var(--transition-slow);
           flex-shrink: 0;
           display: flex;
           flex-direction: column;
+          box-shadow: 
+            0 1px 3px 0 rgba(0, 0, 0, 0.1),
+            0 1px 2px 0 rgba(0, 0, 0, 0.06);
         }
 
         .panel-collapsed { 
@@ -1139,8 +1347,12 @@ const ByrnePortfolio: React.FC = () => {
 
         .panel-expanded { 
           width: 600px; 
-          border-color: var(--theme-color); 
-          box-shadow: 0 10px 40px var(--shadow-soft);
+          border-color: transparent;
+          box-shadow: 
+            0 10px 15px -3px rgba(0, 0, 0, 0.1),
+            0 4px 6px -2px rgba(0, 0, 0, 0.05),
+            0 0 0 1px var(--theme-color);
+          transform: translateY(-5px);
         }
 
         .panel-geometric-badge {
@@ -1312,18 +1524,15 @@ const ByrnePortfolio: React.FC = () => {
         /* Responsive */
         @media (max-width: 1024px) {
           .hero-content {
-            grid-template-columns: 1fr;
-            gap: 3rem;
-            text-align: center;
+            gap: 2rem;
           }
 
-          .hero-intro {
-            padding-right: 0;
+          .hero-profile-card {
+            transform: scale(1);
           }
 
           .modern-profile-card {
-            max-width: 400px;
-            margin: 0 auto;
+            max-width: 380px;
           }
         }
 
@@ -1332,8 +1541,21 @@ const ByrnePortfolio: React.FC = () => {
             font-size: 16px;
           }
 
+          .nav-bar {
+            padding: 1rem;
+          }
+
           .nav-links {
             display: none;
+          }
+
+          .mobile-menu-toggle {
+            display: block;
+            background: none;
+            border: none;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 0.5rem;
           }
 
           .nav-content {
@@ -1341,19 +1563,25 @@ const ByrnePortfolio: React.FC = () => {
           }
 
           .hero-section {
-            padding: 6rem 1rem 2rem;
+            padding: 2rem 1rem;
+            min-height: 100vh;
           }
 
-          .hero-title {
-            font-size: 2rem;
+          .hero-content {
+            max-width: 380px;
           }
 
-          .hero-subtitle {
-            font-size: 1.1rem;
+          .hero-nav-hint {
+            bottom: 2rem;
+          }
+
+          .particle {
+            width: 3px;
+            height: 3px;
           }
 
           .modern-profile-card {
-            margin: 0 auto;
+            padding: 2rem 1.5rem;
           }
 
           .lanyard-nav {
@@ -1467,10 +1695,7 @@ const ByrnePortfolio: React.FC = () => {
 
         /* Section Return Buttons */
         .section-return-container {
-          display: flex;
-          justify-content: center;
-          margin-top: 3rem;
-          width: 100%;
+          display: none;
         }
 
         .section-return {
@@ -1547,25 +1772,18 @@ const ByrnePortfolio: React.FC = () => {
       </nav>
 
       <section id="hero" className="hero-section">
+        <div className="hero-particles">
+          {[...Array(20)].map((_, i) => (
+            <div key={i} className="particle" style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 10}s`,
+              animationDuration: `${15 + Math.random() * 20}s`
+            }} />
+          ))}
+        </div>
         <div className="hero-content">
-          <div className="hero-intro">
-            <h1 className="hero-title">
-              Eli Salamie
-            </h1>
-            <p className="hero-subtitle">
-              AI Engineer exploring the intersection of technology, art, and human cognition.
-            </p>
-            <div className="hero-cta-group">
-              <button className="hero-cta" onClick={() => scrollToSection('projects')}>
-                <Triangle size={16} />
-                View Projects
-              </button>
-              <button className="hero-cta hero-cta-secondary" onClick={() => scrollToSection('about')}>
-                Learn More
-              </button>
-            </div>
-          </div>
-          <div className="hero-profile-card">
+          <div className="hero-profile-wrapper">
             <ProfileCard
               avatarUrl="/imgs/banff.jpg"
               name="Eli Salamie"
@@ -1581,9 +1799,19 @@ const ByrnePortfolio: React.FC = () => {
             />
           </div>
         </div>
+        <div className="hero-nav-hint">
+          <button 
+            className="nav-hint-btn"
+            onClick={() => scrollToSection('projects')}
+            aria-label="View projects"
+          >
+            <span className="nav-hint-text">Projects</span>
+            <ArrowDown size={20} className="nav-hint-arrow" />
+          </button>
+        </div>
       </section>
 
-      <section id="about" className="section about-section">
+      <section id="about" className={`section about-section ${visibleSections.has('about') ? 'visible' : ''}`}>
         <div className="section-header">
           <div className="section-badge">About</div>
           <h2 className="section-title">Professional Journey</h2>
@@ -1599,7 +1827,7 @@ const ByrnePortfolio: React.FC = () => {
         </div>
       </section>
 
-      <section id="projects" className="section projects-section">
+      <section id="projects" className={`section projects-section ${visibleSections.has('projects') ? 'visible' : ''}`}>
         <div className="section-header">
           <div className="section-badge">Projects</div>
           <h2 className="section-title">Selected Works</h2>
@@ -1616,7 +1844,7 @@ const ByrnePortfolio: React.FC = () => {
         </div>
       </section>
 
-      <section id="blog" className="section blog-section">
+      <section id="blog" className={`section blog-section ${visibleSections.has('blog') ? 'visible' : ''}`}>
         <div className="section-header">
           <div className="section-badge">Blog</div>
           <h2 className="section-title">Thoughts & Insights</h2>

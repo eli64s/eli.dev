@@ -4,7 +4,7 @@ import {
   Github, Linkedin, Mail, ArrowDown, Layers,
   Brain, Rocket, Terminal, Database, Cloud,
   GitBranch, Box, Command, Briefcase, GraduationCap, Award,
-  Triangle, Circle, Square, Hexagon, ArrowRight, MapPin, Calendar, Send, ArrowUp, PenTool
+  Triangle, Circle, Square, Hexagon, ArrowRight, MapPin, Calendar, Send, ArrowUp, PenTool, Menu, X
 } from "lucide-react";
 
 // Type definitions
@@ -337,6 +337,7 @@ const ByrnePortfolio: React.FC = () => {
   const [activeSection, setActiveSection] = useState('hero');
   const [isMobile, setIsMobile] = useState(false);
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -447,6 +448,7 @@ const ByrnePortfolio: React.FC = () => {
 
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    setMobileMenuOpen(false); // Close mobile menu after navigation
   };
 
   const handleEmailClick = () => {
@@ -1550,12 +1552,92 @@ const ByrnePortfolio: React.FC = () => {
           }
 
           .mobile-menu-toggle {
-            display: block;
-            background: none;
-            border: none;
-            color: var(--text-dark);
-            cursor: pointer;
-            padding: 0.5rem;
+            display: none;
+          }
+          
+          @media (max-width: 768px) {
+            .mobile-menu-toggle {
+              display: block;
+              background: none;
+              border: none;
+              color: var(--text-dark);
+              cursor: pointer;
+              padding: 0.5rem;
+              z-index: 1002;
+              position: relative;
+            }
+          }
+          
+          /* Mobile Menu */
+          .mobile-menu {
+            display: none;
+          }
+          
+          @media (max-width: 768px) {
+            .mobile-menu {
+              display: block;
+              position: fixed;
+              top: 0;
+              right: -100%;
+              width: 80%;
+              max-width: 300px;
+              height: 100vh;
+              background: var(--bg-white);
+              box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+              transition: right 0.3s ease;
+              z-index: 1001;
+              padding: 5rem 2rem 2rem;
+            }
+            
+            .mobile-menu.open {
+              right: 0;
+            }
+            
+            .mobile-menu-overlay {
+              display: none;
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background: rgba(0, 0, 0, 0.5);
+              z-index: 1000;
+              opacity: 0;
+              transition: opacity 0.3s ease;
+            }
+            
+            .mobile-menu-overlay.visible {
+              display: block;
+              opacity: 1;
+            }
+            
+            .mobile-nav-links {
+              display: flex;
+              flex-direction: column;
+              gap: 2rem;
+              list-style: none;
+              padding: 0;
+              margin: 0;
+            }
+            
+            .mobile-nav-link {
+              font-family: var(--font-sans);
+              font-size: 1.125rem;
+              color: var(--text-muted);
+              text-decoration: none;
+              transition: color 0.2s ease;
+              display: block;
+              padding: 0.5rem 0;
+            }
+            
+            .mobile-nav-link.active {
+              color: var(--accent-red);
+              font-weight: 600;
+            }
+            
+            .mobile-nav-link:hover {
+              color: var(--text-dark);
+            }
           }
 
           .nav-content {
@@ -1768,8 +1850,59 @@ const ByrnePortfolio: React.FC = () => {
             <li className={`nav-link ${activeSection === 'blog' ? 'active' : ''}`}
               onClick={() => scrollToSection('blog')}>Blog</li>
           </ul>
+          <button 
+            className="mobile-menu-toggle"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle mobile menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      <div 
+        className={`mobile-menu-overlay ${mobileMenuOpen ? 'visible' : ''}`}
+        onClick={() => setMobileMenuOpen(false)}
+      />
+
+      {/* Mobile Menu */}
+      <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
+        <ul className="mobile-nav-links">
+          <li>
+            <a 
+              className={`mobile-nav-link ${activeSection === 'hero' ? 'active' : ''}`}
+              onClick={() => scrollToSection('hero')}
+            >
+              Home
+            </a>
+          </li>
+          <li>
+            <a 
+              className={`mobile-nav-link ${activeSection === 'about' ? 'active' : ''}`}
+              onClick={() => scrollToSection('about')}
+            >
+              About
+            </a>
+          </li>
+          <li>
+            <a 
+              className={`mobile-nav-link ${activeSection === 'projects' ? 'active' : ''}`}
+              onClick={() => scrollToSection('projects')}
+            >
+              Projects
+            </a>
+          </li>
+          <li>
+            <a 
+              className={`mobile-nav-link ${activeSection === 'blog' ? 'active' : ''}`}
+              onClick={() => scrollToSection('blog')}
+            >
+              Blog
+            </a>
+          </li>
+        </ul>
+      </div>
 
       <section id="hero" className="hero-section">
         <div className="hero-particles">

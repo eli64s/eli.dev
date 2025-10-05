@@ -404,7 +404,7 @@ const ByrnePortfolio: React.FC = () => {
       title: "InnerAura Labs",
       subtitle: "Innovation & Research",
       description: "Building systems for true human-AI collaboration", // No HTML in description here
-      icon: <img src="/icons/InnerAura.svg" alt="InnerAura Labs logo" />,
+      icon: <img src="/icons/inneraura.svg" alt="InnerAura Labs logo" />,
       tech: ["AI Research", "Agentic Systems", "Creative Coding", "Generative Tools", "Human-Computer Interaction"],
       themeColor: "#9B59B6",
       link: "https://github.com/InnerAura",

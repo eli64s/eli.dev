@@ -241,9 +241,9 @@ const LanyardSection: React.FC = () => {
 const ProjectPanel: React.FC<ProjectPanelProps> = ({ project, isExpanded, onMouseEnter }) => {
   const [stars, setStars] = useState<number | null>(null);
 
-  // Effect to fetch GitHub stars if githubRepo is provided AND it's not InnerAurora Labs
+  // Effect to fetch GitHub stars if githubRepo is provided AND it's not InnerAura Labs
   useEffect(() => {
-    if (project.githubRepo && project.title !== "InnerAurora Labs") { // Added condition to hide stars for InnerAurora
+    if (project.githubRepo && project.title !== "InnerAura Labs") { // Added condition to hide stars for InnerAura
       const fetchStars = async () => {
         try {
           const response = await fetch(`https://api.github.com/repos/${project.githubRepo}`, {
@@ -264,7 +264,7 @@ const ProjectPanel: React.FC<ProjectPanelProps> = ({ project, isExpanded, onMous
       };
       fetchStars();
     } else {
-      setStars(null); // Explicitly set stars to null if it's InnerAurora or no githubRepo
+      setStars(null); // Explicitly set stars to null if it's InnerAura or no githubRepo
     }
   }, [project.githubRepo, project.title]); // Depend on title as well for the condition
 
@@ -291,8 +291,8 @@ const ProjectPanel: React.FC<ProjectPanelProps> = ({ project, isExpanded, onMous
           <div>
             <h3 className="panel-title">{project.title}</h3>
             <p className="panel-subtitle">{project.subtitle}</p>
-            {/* Stars are only displayed if githubRepo exists, stars are fetched, AND it's not InnerAurora Labs */}
-            {project.githubRepo && stars !== null && project.title !== "InnerAurora Labs" && (
+            {/* Stars are only displayed if githubRepo exists, stars are fetched, AND it's not InnerAura Labs */}
+            {project.githubRepo && stars !== null && project.title !== "InnerAura Labs" && (
               <p className="github-stars">
                 <Github size={14} style={{ marginRight: '5px' }} />
                 {stars.toLocaleString()} Stars
@@ -401,14 +401,14 @@ const ByrnePortfolio: React.FC = () => {
   const projects: Project[] = [
     {
       id: 8,
-      title: "InnerAurora Labs",
+      title: "InnerAura Labs",
       subtitle: "Innovation & Research",
       description: "Building systems for true human-AI collaboration", // No HTML in description here
-      icon: <img src="/icons/inneraurora.svg" alt="InnerAurora Labs logo" />,
+      icon: <img src="/icons/InnerAura.svg" alt="InnerAura Labs logo" />,
       tech: ["AI Research", "Agentic Systems", "Creative Coding", "Generative Tools", "Human-Computer Interaction"],
       themeColor: "#9B59B6",
-      link: "https://github.com/InnerAurora",
-      githubRepo: "InnerAurora/.github" // Still include repo for consistency, but stars won't show
+      link: "https://github.com/InnerAura",
+      githubRepo: "InnerAura/.github" // Still include repo for consistency, but stars won't show
     },
     {
       id: 5,
